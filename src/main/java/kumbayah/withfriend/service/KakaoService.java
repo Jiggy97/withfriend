@@ -19,8 +19,8 @@ public class KakaoService {
 
     public String getKakaoLogin() {
         return KAKAO_AUTH_URI + "/oauth/authorize"
-                + "?client_id=" + KAKAO_RESTAPI_KEY
-                + "&redirect_uri=" + KAKAO_REDIRECT_URL
-                + "&response_type=code";
+                + "?response_type=code&"
+                + "client_id=" + KAKAO_RESTAPI_KEY
+                + "&redirect_uri=" + KAKAO_REDIRECT_URL;
     }
 }
