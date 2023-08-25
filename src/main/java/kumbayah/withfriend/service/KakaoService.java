@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kumbayah.withfriend.dto.KakaoDTO;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -28,12 +25,6 @@ public class KakaoService {
 
     private final static String KAKAO_AUTH_URI = "https://kauth.kakao.com";
     private final static String KAKAO_API_URI = "https://kapi.kakao.com";
-
-    private final KakaoDTO kakaoDTO;
-
-    public KakaoService(KakaoDTO kakaoDTO) {
-        this.kakaoDTO = kakaoDTO;
-    }
 
     public String getKakaoLogin() {
         return KAKAO_AUTH_URI + "/oauth/authorize"
@@ -65,13 +56,13 @@ public class KakaoService {
             params.add("redirect_uri"   , KAKAO_REDIRECT_URI);
 
             // 스프링에서 제공하는 RestTemplate은 HTTP 요청과 응답을 간편하게 처리할 수 있는 클래스이다
-            RestTemplate restTemplate = new RestTemplate();
+            RestTemplate rtForToken = new RestTemplate();
             // HTTP 요청을 통해 토큰을 받기 위한 필수 데이터들을 담은 headers와 params를 HttpEntity 객체로 캡슐화
             HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(params, headers);
 
             // 토큰을 받기 위한 HTTP 메서드: POST, URL: https://kauth.kakao.com/oauth/token
             // 데이터 : httpEntity 객체,
-            ResponseEntity<String> response = restTemplate.exchange(
+            ResponseEntity<String> response = rtForToken.exchange(
                     KAKAO_AUTH_URI + "/oauth/token",
                     HttpMethod.POST,
                     httpEntity,
@@ -82,8 +73,8 @@ public class KakaoService {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(response.getBody());
 
-            accessToken = jsonNode.get("access_Token").asText();
-            refreshToken = jsonNode.get("refresh_Token").asText();
+            accessToken = jsonNode.get("access_token").asText();
+            refreshToken = jsonNode.get("refresh_token").asText();
         } catch (Exception e) {
             throw new Exception("API call failed");
         }
@@ -95,13 +86,13 @@ public class KakaoService {
     private KakaoDTO getUserInfoWithToken(String accessToken) throws Exception {
         // HttpHeader 생성
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer" + accessToken);
+        headers.add("Authorization", "Bearer " + accessToken);
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
         // HttpHeader 담기
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate rtForUserInfo = new RestTemplate();
         HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(headers);
-        ResponseEntity<String> response = restTemplate.exchange(
+        ResponseEntity<String> response = rtForUserInfo.exchange(
                 KAKAO_API_URI + "/v2/user/me",
                 HttpMethod.POST,
                 httpEntity,
@@ -111,11 +102,33 @@ public class KakaoService {
         // response data 파싱
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(response.getBody());
+
         JsonNode account = jsonNode.get("kakao_account");
         JsonNode profile = account.get("profile");
 
         long id = jsonNode.get("id").asLong();
-        String email = account.get("account").asText();
-        String nickname = account.get("nickname").asText();
+        String nickname = profile.get("nickname").asText();
+//        String profileImageUrl = profile.get("image").asText();
+
+        return new KakaoDTO(id, nickname);
+    }
+
+    public void disconnectKakaoAccount(String accessToken) throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + accessToken);
+
+        RestTemplate rtForUnlink = new RestTemplate();
+        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = rtForUnlink.exchange(
+                KAKAO_API_URI + "/v1/user/unlink",
+                HttpMethod.POST,
+                httpEntity,
+                String.class
+        );
+
+        if (response.getStatusCode() != HttpStatus.OK) {
+            throw new Exception("Failed to disconnect");
+        }
+
     }
 }
