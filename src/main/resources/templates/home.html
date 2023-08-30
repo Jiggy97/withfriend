@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p>로그인에 성공했습니다!!</p>
+    <p th:text="${kakaoInfo.nickname}"></p>
+    <form th:action="@{/main/logout}" method="get">
+        <input type="submit" value="로그아웃">
+    </form>
+    <form th:action="@{/main/disconnect}" method="get">
+        <input type="submit" value="계정끊기">
+    </form>
+</body>
+</html>

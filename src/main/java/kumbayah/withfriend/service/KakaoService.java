@@ -2,6 +2,7 @@ package kumbayah.withfriend.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpSession;
 import kumbayah.withfriend.dto.KakaoDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -33,7 +34,7 @@ public class KakaoService {
                 + "&redirect_uri=" + KAKAO_REDIRECT_URI;
     }
 
-    public KakaoDTO getKakaoInfo(String code) throws Exception {
+    public KakaoDTO getKakaoInfo(String code, HttpSession session) throws Exception {
         if (code==null) throw new Exception("Failed get authorization code");
 
         String accessToken = "";
@@ -75,6 +76,8 @@ public class KakaoService {
 
             accessToken = jsonNode.get("access_token").asText();
             refreshToken = jsonNode.get("refresh_token").asText();
+
+            session.setAttribute("access_token", accessToken);
         } catch (Exception e) {
             throw new Exception("API call failed");
         }
@@ -111,6 +114,31 @@ public class KakaoService {
 //        String profileImageUrl = profile.get("image").asText();
 
         return new KakaoDTO(id, nickname);
+    }
+
+    public void logout(String accessToken, Long userId) throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + accessToken);
+
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("target_id_type" , "user_id");
+        params.add("target_id"      , String.valueOf(userId));
+
+        RestTemplate rtForLogout = new RestTemplate();
+        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(params, headers);
+
+        ResponseEntity<String> response = rtForLogout.exchange(
+                KAKAO_AUTH_URI + "/v1/user/logout",
+                HttpMethod.POST,
+                httpEntity,
+                String.class
+        );
+
+        HttpStatusCode statusCode = response.getStatusCode();
+        String responseBody = response.getBody();
+
+        System.out.println("Status Code: " + statusCode);
+        System.out.println("Response Body: " + responseBody);
     }
 
     public void disconnectKakaoAccount(String accessToken) throws Exception {
