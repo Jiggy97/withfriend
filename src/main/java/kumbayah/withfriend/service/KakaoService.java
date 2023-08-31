@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
 import kumbayah.withfriend.dto.KakaoDTO;
+import kumbayah.withfriend.dto.KakaoFriendsInfoDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -114,6 +117,38 @@ public class KakaoService {
 //        String profileImageUrl = profile.get("image").asText();
 
         return new KakaoDTO(id, nickname);
+    }
+
+    public KakaoFriendsInfoDTO getFriendsInfo(String accessToken) throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + accessToken);
+
+        RestTemplate rtForFriendsInfo = new RestTemplate();
+        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = rtForFriendsInfo.exchange(
+                KAKAO_API_URI + "/v1/api/talk/friends",
+                HttpMethod.GET,
+                httpEntity,
+                String.class
+        );
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(response.getBody());
+
+        JsonNode elementsNode = jsonNode.get("elements");
+        List<KakaoFriendsInfoDTO.Friend> elements = new ArrayList<>();
+        for (JsonNode friendNode: elementsNode) {
+            long id = friendNode.get("id").asLong();
+            String uuid = friendNode.get("uuid").asText();
+            String profile_nickname = friendNode.get("profile_nickname").asText();
+
+            KakaoFriendsInfoDTO.Friend friend = new KakaoFriendsInfoDTO.Friend(id, uuid, profile_nickname);
+            elements.add(friend);
+        }
+
+        int total_count = jsonNode.get("total_count").asInt();
+
+        return new KakaoFriendsInfoDTO(elements, total_count);
     }
 
     public void logout(String accessToken, Long userId) throws Exception {

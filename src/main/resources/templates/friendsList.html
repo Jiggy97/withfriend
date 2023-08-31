@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<tr>
+    <th>id</th>
+    <th>profile_nickname</th>
+</tr>
+<!--    for each 와 같음   -->
+<tr th:each="info: ${friendsInfo}">
+    <td th:text="${info.id}"></td>
+    <td th:text="${info.profile_nickname}"></td>
+</tr>
+</body>
+</html>

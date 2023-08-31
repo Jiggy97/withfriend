@@ -7,10 +7,13 @@
 <body>
     <p>로그인에 성공했습니다!!</p>
     <p th:text="${kakaoInfo.nickname}"></p>
-    <form th:action="@{/main/logout}" method="get">
+    <form th:action="@{/kakao/friendsInfo}" method="get">
+        <input type="submit" value="친구목록 불러오기">
+    </form>
+    <form th:action="@{/kakao/logout}" method="get">
         <input type="submit" value="로그아웃">
     </form>
-    <form th:action="@{/main/disconnect}" method="get">
+    <form th:action="@{/kakao/disconnect}" method="get">
         <input type="submit" value="계정끊기">
     </form>
 </body>
