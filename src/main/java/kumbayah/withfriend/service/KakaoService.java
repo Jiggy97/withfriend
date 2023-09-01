@@ -29,8 +29,6 @@ public class KakaoService {
 
     private final static String KAKAO_AUTH_URI = "https://kauth.kakao.com";
     private final static String KAKAO_API_URI = "https://kapi.kakao.com";
-    private final static String LOGOUT_REDIRECT_URI = "http://localhost:8083/main/";
-    private final static String SERVICE_APP_ADMIN_KEY = "f601deb998c3281625c2ef775dbfeeca";
 
     public String getKakaoLogin() {
         return KAKAO_AUTH_URI + "/oauth/authorize"
