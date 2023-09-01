@@ -41,11 +41,22 @@ public class KakaoController {
 
     @GetMapping("/logout")
     public String logout(HttpSession session, Model model) throws Exception {
-        String accessToken = (String) session.getAttribute("access_token");
-        Long userId = (Long) session.getAttribute("user_id");
-        session.removeAttribute("access_token");
+        long userId = (long) session.getAttribute("user_id");
         session.removeAttribute("user_id");
-        kakaoService.logout(accessToken, userId);
+        session.removeAttribute("access_token");
+        kakaoService.logout(userId);
+
+        model.addAttribute("kakaoUrl", kakaoService.getKakaoLogin());
+        return "index";
+    }
+
+    @GetMapping("unlink")
+    public String unlink(HttpSession session, Model model) {
+        String accessToken = (String) session.getAttribute("access_token");
+        long userId  = (Long) session.getAttribute("user_id");
+        session.removeAttribute("user_id");
+        session.removeAttribute("access_token");
+        kakaoService.unlink(accessToken, userId);
 
         model.addAttribute("kakaoUrl", kakaoService.getKakaoLogin());
         return "index";
@@ -56,6 +67,7 @@ public class KakaoController {
         try {
             String accessToken = (String) session.getAttribute("access_token");
             kakaoService.disconnectKakaoAccount(accessToken);
+            session.removeAttribute("user_id");
             session.removeAttribute("access_token");
             ResponseEntity.ok("Kakao account disconnected");
 

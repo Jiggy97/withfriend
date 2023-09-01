@@ -29,12 +29,15 @@ public class KakaoService {
 
     private final static String KAKAO_AUTH_URI = "https://kauth.kakao.com";
     private final static String KAKAO_API_URI = "https://kapi.kakao.com";
+    private final static String LOGOUT_REDIRECT_URI = "http://localhost:8083/main/";
+    private final static String SERVICE_APP_ADMIN_KEY = "f601deb998c3281625c2ef775dbfeeca";
 
     public String getKakaoLogin() {
         return KAKAO_AUTH_URI + "/oauth/authorize"
                 + "?response_type=code&"
                 + "client_id=" + KAKAO_RESTAPI_KEY
-                + "&redirect_uri=" + KAKAO_REDIRECT_URI;
+                + "&redirect_uri=" + KAKAO_REDIRECT_URI
+                + "&prompt=login,consent";
     }
 
     public KakaoDTO getKakaoInfo(String code, HttpSession session) throws Exception {
@@ -151,19 +154,41 @@ public class KakaoService {
         return new KakaoFriendsInfoDTO(elements, total_count);
     }
 
-    public void logout(String accessToken, Long userId) throws Exception {
+    public void logout(long userId) throws Exception {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "KakaoAK " + SERVICE_APP_ADMIN_KEY);
+
+        RestTemplate rtForLogout = new RestTemplate();
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("target_id_type", "user_id");
+        params.add("target_id", String.valueOf(userId));
+
+        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(params, headers);
+
+        // http 요청
+        ResponseEntity<String> response = rtForLogout.exchange(
+                KAKAO_API_URI + "/v1/user/logout",
+                HttpMethod.POST,
+                httpEntity,
+                String.class
+        );
+
+        HttpStatusCode statusCode = response.getStatusCode();
+        String responseBody = response.getBody();
+
+        System.out.println("Status Code: " + statusCode);
+        System.out.println("Response Body: " + responseBody);
+    }
+
+    public void unlink(String accessToken, long userId) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + accessToken);
 
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("target_id_type" , "user_id");
-        params.add("target_id"      , String.valueOf(userId));
+        RestTemplate rtForUnlink = new RestTemplate();
+        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(headers);
 
-        RestTemplate rtForLogout = new RestTemplate();
-        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(params, headers);
-
-        ResponseEntity<String> response = rtForLogout.exchange(
-                KAKAO_AUTH_URI + "/v1/user/logout",
+        ResponseEntity<String> response = rtForUnlink.exchange(
+                KAKAO_API_URI + "/v1/user/unlink",
                 HttpMethod.POST,
                 httpEntity,
                 String.class

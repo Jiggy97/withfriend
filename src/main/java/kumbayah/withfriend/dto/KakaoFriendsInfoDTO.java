@@ -36,6 +36,4 @@ public class KakaoFriendsInfoDTO {
         public void setUuid(String uuid) { this.uuid = uuid; }
         public void setProfile_nickname(String profile_nickname) { this.profile_nickname = profile_nickname; }
     }
-
-
 }
