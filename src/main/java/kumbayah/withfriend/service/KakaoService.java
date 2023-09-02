@@ -27,6 +27,9 @@ public class KakaoService {
     @Value("${kakao.redirect.uri}")
     private String KAKAO_REDIRECT_URI;
 
+    @Value("${service.app.admin.key")
+    private String SERVICE_APP_ADMIN_KEY;
+
     private final static String KAKAO_AUTH_URI = "https://kauth.kakao.com";
     private final static String KAKAO_API_URI = "https://kapi.kakao.com";
 
