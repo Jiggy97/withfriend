@@ -7,9 +7,21 @@
 <body>
     <p>로그인에 성공했습니다!!</p>
     <p th:text="${kakaoInfo.nickname}"></p>
+    <p><a th:href="@{|${agreeUrl}|}">친구목록 동의</a></p>
     <form th:action="@{/kakao/friendsInfo}" method="get">
         <input type="submit" value="친구목록 불러오기">
     </form>
+
+    <br><br>
+
+    <form th:action="@{/trust/}" method="get">
+        <input type="submit" value="신뢰 장터">
+    </form>
+
+
+    <br><br><br>
+
+
     <form th:action="@{/kakao/logout}" method="get">
         <input type="submit" value="로그아웃">
     </form>

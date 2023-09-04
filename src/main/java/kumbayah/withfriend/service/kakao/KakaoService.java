@@ -1,10 +1,10 @@
-package kumbayah.withfriend.service;
+package kumbayah.withfriend.service.kakao;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
-import kumbayah.withfriend.dto.KakaoDTO;
-import kumbayah.withfriend.dto.KakaoFriendsInfoDTO;
+import kumbayah.withfriend.dto.kakao.KakaoDTO;
+import kumbayah.withfriend.dto.kakao.KakaoFriendsInfoDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -27,8 +27,10 @@ public class KakaoService {
     @Value("${kakao.redirect.uri}")
     private String KAKAO_REDIRECT_URI;
 
-    @Value("${service.app.admin.key")
-    private String SERVICE_APP_ADMIN_KEY;
+    @Value("${kakao.admin.key}")
+    private String KAKAO_ADMIN_KEY;
+
+    private String FRIENDS_REDIRECT_URI = "http://localhost:8083/kakao/friendsInfo";
 
     private final static String KAKAO_AUTH_URI = "https://kauth.kakao.com";
     private final static String KAKAO_API_URI = "https://kapi.kakao.com";
@@ -39,6 +41,14 @@ public class KakaoService {
                 + "client_id=" + KAKAO_RESTAPI_KEY
                 + "&redirect_uri=" + KAKAO_REDIRECT_URI
                 + "&prompt=login,consent";
+    }
+
+    public String getFriendsInfo() {
+        return KAKAO_AUTH_URI + "/oauth/authorize"
+                + "?response_type=code&"
+                + "client_id=" + KAKAO_RESTAPI_KEY
+                + "&redirect_uri=" + KAKAO_REDIRECT_URI
+                + "&scope=friends";
     }
 
     public KakaoDTO getKakaoInfo(String code, HttpSession session) throws Exception {
@@ -157,7 +167,7 @@ public class KakaoService {
 
     public void logout(long userId) throws Exception {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "KakaoAK " + SERVICE_APP_ADMIN_KEY);
+        headers.add("Authorization", "KakaoAK " + KAKAO_ADMIN_KEY);
 
         RestTemplate rtForLogout = new RestTemplate();
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();

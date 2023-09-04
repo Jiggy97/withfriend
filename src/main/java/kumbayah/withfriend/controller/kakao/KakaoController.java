@@ -1,10 +1,10 @@
-package kumbayah.withfriend.controller.user;
+package kumbayah.withfriend.controller.kakao;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import kumbayah.withfriend.dto.KakaoDTO;
-import kumbayah.withfriend.dto.KakaoFriendsInfoDTO;
-import kumbayah.withfriend.service.KakaoService;
+import kumbayah.withfriend.dto.kakao.KakaoDTO;
+import kumbayah.withfriend.dto.kakao.KakaoFriendsInfoDTO;
+import kumbayah.withfriend.service.kakao.KakaoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +26,9 @@ public class KakaoController {
         KakaoDTO kakaoInfo = kakaoService.getKakaoInfo(request.getParameter("code"), session);
         session.setAttribute("user_id", kakaoInfo.getId());
         model.addAttribute("kakaoInfo", kakaoInfo);
+
+        String agreeUrl = kakaoService.getFriendsInfo();
+        model.addAttribute("agreeUrl", agreeUrl);
         return "home";
     }
 

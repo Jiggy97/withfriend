@@ -1,4 +1,4 @@
-package kumbayah.withfriend.dto;
+package kumbayah.withfriend.dto.kakao;
 
 public class KakaoDTO {
     private long id;

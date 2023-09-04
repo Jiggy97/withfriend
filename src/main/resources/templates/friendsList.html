@@ -9,10 +9,12 @@
     <th>id</th>
     <th>profile_nickname</th>
 </tr>
+<br>
 <!--    for each 와 같음   -->
-<tr th:each="info: ${friendsInfo}">
+<tr th:each="info: ${friendsInfo.elements}">
     <td th:text="${info.id}"></td>
     <td th:text="${info.profile_nickname}"></td>
+    <br>
 </tr>
 </body>
 </html>

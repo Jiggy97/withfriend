@@ -1,4 +1,4 @@
-package kumbayah.withfriend.dto;
+package kumbayah.withfriend.dto.kakao;
 
 import java.util.List;
 

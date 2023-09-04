@@ -1,6 +1,6 @@
 package kumbayah.withfriend.controller;
 
-import kumbayah.withfriend.service.KakaoService;
+import kumbayah.withfriend.service.kakao.KakaoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
