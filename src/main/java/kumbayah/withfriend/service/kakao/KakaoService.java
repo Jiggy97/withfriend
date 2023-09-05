@@ -103,7 +103,7 @@ public class KakaoService {
     }
 
     // 예외 처리에 대해 잘 알지 못해서 사용하지 않으려 했지만 객체를 파싱하는 과정에서 예외처리가 없으면 오류나서 일단 해줌
-    private KakaoDTO getUserInfoWithToken(String accessToken) throws Exception {
+    public KakaoDTO getUserInfoWithToken(String accessToken) throws Exception {
         // HttpHeader 생성
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + accessToken);
