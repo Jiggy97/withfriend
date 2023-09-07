@@ -1,7 +1,7 @@
 package kumbayah.withfriend.service.trust_marketplace;
 
-import kumbayah.withfriend.dto.kakao.trust_marketplace.GoodsDTO;
-import kumbayah.withfriend.dto.kakao.trust_marketplace.GoodsListDTO;
+import kumbayah.withfriend.dto.trust_marketplace.GoodsDTO;
+import kumbayah.withfriend.dto.trust_marketplace.GoodsListDTO;
 import kumbayah.withfriend.entity.trust_marketplace.GoodsEntity;
 import kumbayah.withfriend.repository.trust_marketplace.TrustMarketplaceRepository;
 import org.springframework.stereotype.Service;
@@ -28,8 +28,12 @@ public class TrustMarketplaceService {
         return goodsList;
     }
 
-    public void postGoods(GoodsDTO goods, String nickname) {
-        GoodsEntity goodsEntity = GoodsEntity.toSaveEntity(goods, nickname);
+    public List<GoodsListDTO> findGoodsOfFriend() {
+        List<GoodsEntity> goodsEntityList = trustMarketplaceRepository.findAllById()
+    }
+
+    public void postGoods(GoodsDTO goods, String nickname, long userId) {
+        GoodsEntity goodsEntity = GoodsEntity.toSaveEntity(goods, nickname, userId);
         trustMarketplaceRepository.save(goodsEntity);
     }
 }

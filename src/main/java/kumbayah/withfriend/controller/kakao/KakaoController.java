@@ -3,6 +3,7 @@ package kumbayah.withfriend.controller.kakao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import kumbayah.withfriend.dto.kakao.KakaoDTO;
+import kumbayah.withfriend.dto.kakao.KakaoFriendListDTO;
 import kumbayah.withfriend.dto.kakao.KakaoFriendsInfoDTO;
 import kumbayah.withfriend.service.kakao.KakaoService;
 import org.springframework.http.ResponseEntity;

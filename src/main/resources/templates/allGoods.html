@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>신뢰 장터</h2>
+
+<form th:action="@{/trust/}" method="get">
+    <input type="submit" value="돌아가기">
+</form>
+
+<table>
+    <tr>
+        <th>상품명</th>
+        <th>판매자</th>
+        <th>가격</th>
+        <th>설명</th>
+    </tr>
+    <tr th:each="goods: ${goodsList}">
+        <td th:text="${goods.name}"></td>
+        <td th:text="${goods.kakaoNickname}"></td>
+        <!--            <td><a th:href="@{|/board/${board.id}|}" th:text="${board.boardTitle}"></a></td>-->
+        <td th:number="${goods.price}"></td>
+        <td th:text="${goods.description}"></td>
+    </tr>
+</table>
+</body>
+</html>

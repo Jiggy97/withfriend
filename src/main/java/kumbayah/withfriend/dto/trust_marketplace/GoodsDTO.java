@@ -1,4 +1,4 @@
-package kumbayah.withfriend.dto.kakao.trust_marketplace;
+package kumbayah.withfriend.dto.trust_marketplace;
 
 public class GoodsDTO {
     private String name;

@@ -2,11 +2,11 @@ package kumbayah.withfriend.controller.trust_marketplace;
 
 import jakarta.servlet.http.HttpSession;
 import kumbayah.withfriend.dto.kakao.KakaoDTO;
-import kumbayah.withfriend.dto.kakao.trust_marketplace.GoodsListDTO;
+import kumbayah.withfriend.dto.trust_marketplace.GoodsListDTO;
 import kumbayah.withfriend.service.kakao.KakaoService;
 import kumbayah.withfriend.service.trust_marketplace.TrustMarketplaceService;
 
-import kumbayah.withfriend.dto.kakao.trust_marketplace.GoodsDTO;
+import kumbayah.withfriend.dto.trust_marketplace.GoodsDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,10 +30,21 @@ public class TrustMarketplaceController {
 
     @GetMapping("/")
     public String trustMarket(Model model) {
+        return "trust_marketplace";
+    }
+
+    @GetMapping("/allGoods")
+    public String findAll(Model model) {
         List<GoodsListDTO> goodsList = trustMarketplaceService.findAll();
         model.addAttribute("goodsList", goodsList);
 
-        return "trust_marketplace";
+        return "allGoods";
+    }
+
+    @GetMapping("/friendsGoods")
+    public String findFriendsGoods() {
+
+        return "friendsGoods";
     }
 
     @PostMapping("/goods")
@@ -41,8 +52,9 @@ public class TrustMarketplaceController {
     public String postGoods(@ModelAttribute GoodsDTO goods, HttpSession session, Model model) throws Exception {
         String accessToken = (String) session.getAttribute("access_token");
         KakaoDTO kakaoDTO = kakaoService.getUserInfoWithToken(accessToken);
+        long userId = kakaoDTO.getId();
         String nickname = kakaoDTO.getNickname();
-        trustMarketplaceService.postGoods(goods, nickname);
+        trustMarketplaceService.postGoods(goods, nickname, userId);
         List<GoodsListDTO> goodsList = trustMarketplaceService.findAll();
         model.addAttribute("goodsList", goodsList);
 

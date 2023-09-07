@@ -1,4 +1,4 @@
-package kumbayah.withfriend.dto.kakao.trust_marketplace;
+package kumbayah.withfriend.dto.trust_marketplace;
 
 import kumbayah.withfriend.entity.trust_marketplace.GoodsEntity;
 
