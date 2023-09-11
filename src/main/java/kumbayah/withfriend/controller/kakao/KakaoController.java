@@ -3,7 +3,6 @@ package kumbayah.withfriend.controller.kakao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import kumbayah.withfriend.dto.kakao.KakaoDTO;
-import kumbayah.withfriend.dto.kakao.KakaoFriendListDTO;
 import kumbayah.withfriend.dto.kakao.KakaoFriendsInfoDTO;
 import kumbayah.withfriend.service.kakao.KakaoService;
 import org.springframework.http.ResponseEntity;
@@ -57,10 +56,9 @@ public class KakaoController {
     @GetMapping("unlink")
     public String unlink(HttpSession session, Model model) {
         String accessToken = (String) session.getAttribute("access_token");
-        long userId  = (Long) session.getAttribute("user_id");
         session.removeAttribute("user_id");
         session.removeAttribute("access_token");
-        kakaoService.unlink(accessToken, userId);
+        kakaoService.unlink(accessToken);
 
         model.addAttribute("kakaoUrl", kakaoService.getKakaoLogin());
         return "index";

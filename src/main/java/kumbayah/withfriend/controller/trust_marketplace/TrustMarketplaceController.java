@@ -1,5 +1,6 @@
 package kumbayah.withfriend.controller.trust_marketplace;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpSession;
 import kumbayah.withfriend.dto.kakao.KakaoDTO;
 import kumbayah.withfriend.dto.trust_marketplace.GoodsListDTO;
@@ -29,7 +30,7 @@ public class TrustMarketplaceController {
     }
 
     @GetMapping("/")
-    public String trustMarket(Model model) {
+    public String trustMarket() {
         return "trust_marketplace";
     }
 
@@ -42,7 +43,10 @@ public class TrustMarketplaceController {
     }
 
     @GetMapping("/friendsGoods")
-    public String findFriendsGoods() {
+    public String findFriendsGoods(HttpSession session, Model model) throws JsonProcessingException {
+        String accessToken = (String) session.getAttribute("access_token");
+        List<GoodsListDTO> goodsListOfFriends = trustMarketplaceService.findGoodsOfFriend(accessToken);
+        model.addAttribute("goodsListOfFriends", goodsListOfFriends);
 
         return "friendsGoods";
     }

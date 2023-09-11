@@ -1,5 +1,6 @@
 package kumbayah.withfriend.service.kakao;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
@@ -165,6 +166,33 @@ public class KakaoService {
         return new KakaoFriendsInfoDTO(elements, total_count);
     }
 
+    public List<Long> getFriendIdList(String accessToken) throws JsonProcessingException {
+        List<Long> friendUuidList = new ArrayList<>();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + accessToken);
+
+        RestTemplate rtForFriendsUuid = new RestTemplate();
+        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(headers);
+        ResponseEntity<String> response = rtForFriendsUuid.exchange(
+                KAKAO_API_URI + "/v1/api/talk/friends",
+                HttpMethod.GET,
+                httpEntity,
+                String.class
+        );
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(response.getBody());
+
+        JsonNode elementsNode = jsonNode.get("elements");
+        for (JsonNode node : elementsNode) {
+            long id = node.get("id").asLong();
+            friendUuidList.add(id);
+        }
+
+        return friendUuidList;
+    }
+
     public void logout(long userId) throws Exception {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + KAKAO_ADMIN_KEY);
@@ -191,7 +219,7 @@ public class KakaoService {
         System.out.println("Response Body: " + responseBody);
     }
 
-    public void unlink(String accessToken, long userId) {
+    public void unlink(String accessToken) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + accessToken);
 
