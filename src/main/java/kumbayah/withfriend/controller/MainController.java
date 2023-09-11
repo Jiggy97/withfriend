@@ -1,5 +1,7 @@
 package kumbayah.withfriend.controller;
 
+import jakarta.servlet.http.HttpSession;
+import kumbayah.withfriend.dto.kakao.KakaoDTO;
 import kumbayah.withfriend.service.kakao.KakaoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,5 +21,16 @@ public class MainController {
     public String login(Model model) {
         model.addAttribute("kakaoUrl", kakaoService.getKakaoLogin());
         return "index";
+    }
+
+    @GetMapping("/home")
+    public String goToHome(Model model, HttpSession session) throws Exception {
+        String accessToken = (String) session.getAttribute("access_token");
+        KakaoDTO kakaoInfo = kakaoService.getUserInfoWithToken(accessToken);
+        model.addAttribute("kakaoInfo", kakaoInfo);
+
+        String agreeUrl = kakaoService.getFriendsInfo();
+        model.addAttribute("agreeUrl", agreeUrl);
+        return "home";
     }
 }
