@@ -63,20 +63,4 @@ public class KakaoController {
         model.addAttribute("kakaoUrl", kakaoService.getKakaoLogin());
         return "index";
     }
-
-    @GetMapping("/disconnect")
-    public String disconnectKakao(HttpSession session, Model model) throws Exception {
-        try {
-            String accessToken = (String) session.getAttribute("access_token");
-            kakaoService.disconnectKakaoAccount(accessToken);
-            session.removeAttribute("user_id");
-            session.removeAttribute("access_token");
-            ResponseEntity.ok("Kakao account disconnected");
-
-            model.addAttribute("kakaoUrl", kakaoService.getKakaoLogin());
-            return "index";
-        } catch (Exception e) {
-            throw new Exception("Fail disconnect");
-        }
-    }
 }

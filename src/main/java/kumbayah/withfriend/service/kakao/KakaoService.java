@@ -239,23 +239,4 @@ public class KakaoService {
         System.out.println("Status Code: " + statusCode);
         System.out.println("Response Body: " + responseBody);
     }
-
-    public void disconnectKakaoAccount(String accessToken) throws Exception {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer " + accessToken);
-
-        RestTemplate rtForUnlink = new RestTemplate();
-        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(headers);
-        ResponseEntity<String> response = rtForUnlink.exchange(
-                KAKAO_API_URI + "/v1/user/unlink",
-                HttpMethod.POST,
-                httpEntity,
-                String.class
-        );
-
-        if (response.getStatusCode() != HttpStatus.OK) {
-            throw new Exception("Failed to disconnect");
-        }
-
-    }
 }
