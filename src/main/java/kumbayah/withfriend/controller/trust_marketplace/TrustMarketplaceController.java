@@ -43,10 +43,12 @@ public class TrustMarketplaceController {
     }
 
     @GetMapping("/friendsGoods")
-    public String findFriendsGoods(HttpSession session, Model model) throws JsonProcessingException {
+    public String findFriendsGoods(HttpSession session, Model model) throws Exception {
         String accessToken = (String) session.getAttribute("access_token");
+        String buyer = kakaoService.getUserInfoWithToken(accessToken).getNickname();
         List<GoodsListDTO> goodsListOfFriends = trustMarketplaceService.findGoodsOfFriend(accessToken);
         model.addAttribute("goodsListOfFriends", goodsListOfFriends);
+        model.addAttribute("buyer", buyer);
 
         return "friendsGoods";
     }
