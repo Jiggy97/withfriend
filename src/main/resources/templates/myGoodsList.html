@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Friends Goods</title>
+  <!-- jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+  <!-- iamport.payment.js -->
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+  <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+</head>
+<body>
+<form th:action="@{/trust/}" method="get">
+  <input type="submit" value="돌아가기">
+</form>
+<table>
+  <tr>
+    <th>상품명</th>
+    <th>가격</th>
+    <th>설명</th>
+    <th>수량</th>
+  </tr>
+  <tr th:each="goods: ${myGoodsList}">
+    <td th:text="${goods.name}"></td>
+    <!--            <td><a th:href="@{|/board/${board.id}|}" th:text="${board.boardTitle}"></a></td>-->
+    <td th:text="${goods.price}"></td>
+    <td th:text="${goods.description}"></td>
+    <td th:text="${goods.stock}"></td>
+    <td>
+      <button onclick="detailAndUpdate(this)" th:attr="data-goods-id=${goods.id}">
+        수정하기
+      </button>
+    </td>
+  </tr>
+</table>
+</body>
+<script>
+  const detailAndUpdate = (button) => {
+    const id = button.getAttribute('data-goods-id');
+    location.href = "/trust/goods/" + id;
+  }
+</script>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>post</title>
+</head>
+<body>
+<form action="/trust/goods/" method="post">
+    <input type="hidden" name="id" th:value="${goods.id}">
+    name: <input type="text" name="name" th:value="${goods.name}" required> <br>
+    price: <input type="number" name="price" th:value="${goods.price}" required> <br>
+    description: <textarea name="description" cols="30" rows="10" th:utext="${goods.description}" required></textarea> <br>
+    stock: <input type="number" name="stock" th:value="${goods.stock}" required> <br>
+    <input type="submit" value="goods 수정">
+</form>
+</body>
+</html>
