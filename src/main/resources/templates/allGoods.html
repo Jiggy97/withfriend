@@ -17,13 +17,15 @@
         <th>판매자</th>
         <th>가격</th>
         <th>설명</th>
+        <th>수량</th>
     </tr>
     <tr th:each="goods: ${goodsList}">
         <td th:text="${goods.name}"></td>
-        <td th:text="${goods.kakaoNickname}"></td>
+        <td th:text="${goods.seller}"></td>
         <!--            <td><a th:href="@{|/board/${board.id}|}" th:text="${board.boardTitle}"></a></td>-->
-        <td th:number="${goods.price}"></td>
+        <td th:text="${goods.price}"></td>
         <td th:text="${goods.description}"></td>
+        <td th:text="${goods.stock}"></td>
     </tr>
 </table>
 </body>

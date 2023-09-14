@@ -19,17 +19,21 @@
         <th>판매자</th>
         <th>가격</th>
         <th>설명</th>
+        <th>수량</th>
     </tr>
-    <tr th:each="goods: ${goodsListOfFriends}">
+    <tr th:each="goods: ${friendsGoodsList}">
         <td th:text="${goods.name}"></td>
-        <td th:text="${goods.kakaoNickname}"></td>
+        <td th:text="${goods.seller}"></td>
         <!--            <td><a th:href="@{|/board/${board.id}|}" th:text="${board.boardTitle}"></a></td>-->
         <td th:text="${goods.price}"></td>
         <td th:text="${goods.description}"></td>
+        <td th:text="${goods.stock}"></td>
         <td>
             <button onclick="payRequest(this)"
-                th:attr="data-goods-name=${goods.name},data-goods-price=${goods.price}">
-            구매하기
+                th:attr="data-goods-name=${goods.name},
+                        data-goods-price=${goods.price},
+                        data-goods-stock=${goods.stock}">
+                구매하기
             </button>
         </td>
     </tr>
@@ -44,32 +48,34 @@
         // 클릭한 버튼에서 data-goods-name 및 data-goods-price 값을 가져옵니다.
         var goodsName = button.getAttribute('data-goods-name');
         var goodsPrice = button.getAttribute('data-goods-price');
+        var goodsStock = button.getAttribute('data-goods-stock');
 
-        console.log('상품명: ' + goodsName);
-        console.log('가격: ' + goodsPrice);
+        if (goodsStock <= 0) {
+            alert('해당 상품은 재고 부족으로 구매할 수 없습니다.');
+        } else {
+            var today = new Date();
+            var hours = today.getHours(); // 시
+            var minutes = today.getMinutes();  // 분
+            var seconds = today.getSeconds();  // 초
+            var milliseconds = today.getMilliseconds();
+            var makeMerchantUid = hours +  minutes + seconds + milliseconds;
 
-        var today = new Date();
-        var hours = today.getHours(); // 시
-        var minutes = today.getMinutes();  // 분
-        var seconds = today.getSeconds();  // 초
-        var milliseconds = today.getMilliseconds();
-        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
-
-        IMP.request_pay({
-            pg: "kakaopay.TC0ONETIME",
-            pay_method: "card",
-            merchant_uid: "IMP" + makeMerchantUid,
-            name: goodsName,
-            amount: goodsPrice,
-            buyer_name: buyer,
-        }, function (rsp) { // callback
-            //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
-            if (rsp.success) {
-                console.log(rsp);
-            } else {
-                console.log(rsp);
-            }
-        });
+            IMP.request_pay({
+                pg: "kakaopay.TC0ONETIME",
+                pay_method: "card",
+                merchant_uid: "IMP" + makeMerchantUid,
+                name: goodsName,
+                amount: goodsPrice,
+                buyer_name: buyer,
+            }, function (rsp) { // callback
+                //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
+                if (rsp.success) {
+                    console.log(rsp);
+                } else {
+                    console.log(rsp);
+                }
+            });
+        }
     }
 </script>
 </html>

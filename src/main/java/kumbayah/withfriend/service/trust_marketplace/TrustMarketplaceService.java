@@ -2,7 +2,6 @@ package kumbayah.withfriend.service.trust_marketplace;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import kumbayah.withfriend.dto.trust_marketplace.GoodsDTO;
-import kumbayah.withfriend.dto.trust_marketplace.GoodsListDTO;
 import kumbayah.withfriend.entity.trust_marketplace.GoodsEntity;
 import kumbayah.withfriend.repository.trust_marketplace.TrustMarketplaceRepository;
 import kumbayah.withfriend.service.kakao.KakaoService;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TrustMarketplaceService {
@@ -21,25 +21,25 @@ public class TrustMarketplaceService {
         this.kakaoService = kakaoService;
     }
 
-    public List<GoodsListDTO> findAll() {
+    public List<GoodsDTO> findAll() {
         List<GoodsEntity> goodsEntityList = trustMarketplaceRepository.findAll();
-        List<GoodsListDTO> goodsList = new ArrayList<>();
+        List<GoodsDTO> goodsList = new ArrayList<>();
         for (GoodsEntity goodsEntity: goodsEntityList) {
-            GoodsListDTO goods = GoodsListDTO.toGoodsListDTO(goodsEntity);
+            GoodsDTO goods = GoodsDTO.toGoodsDTO(goodsEntity);
             goodsList.add(goods);
         }
 
         return goodsList;
     }
 
-    public List<GoodsListDTO> findGoodsOfFriend(String accessToken) throws JsonProcessingException {
+    public List<GoodsDTO> findFriendsGoods(String accessToken) throws JsonProcessingException {
         List<Long> friendIdList = kakaoService.getFriendIdList(accessToken);
         List<GoodsEntity> goodsEntityList = trustMarketplaceRepository.findAll();
-        List<GoodsListDTO> friendGoodsList = new ArrayList<>();
+        List<GoodsDTO> friendGoodsList = new ArrayList<>();
         for (GoodsEntity goodsEntity : goodsEntityList) {
             if (friendIdList.contains(goodsEntity.getUserId())) {
                 // Entity > DTO 변환 제대로 이루어 졌는지
-                GoodsListDTO friendGoodsDTO = GoodsListDTO.toGoodsListDTO(goodsEntity);
+                GoodsDTO friendGoodsDTO = GoodsDTO.toGoodsDTO(goodsEntity);
                 friendGoodsList.add(friendGoodsDTO);
             }
         }
@@ -47,8 +47,35 @@ public class TrustMarketplaceService {
         return friendGoodsList;
     }
 
-    public void postGoods(GoodsDTO goods, String nickname, long userId) {
-        GoodsEntity goodsEntity = GoodsEntity.toSaveEntity(goods, nickname, userId);
+    public List<GoodsDTO> findMyGoods(long userId) throws JsonProcessingException {
+        List<GoodsEntity> goodsEntityList = trustMarketplaceRepository.findAllByUserId(userId);
+        List<GoodsDTO> myGoodsList = new ArrayList<>();
+        for (GoodsEntity goodsEntity : goodsEntityList) {
+            GoodsDTO myGoodsDTO = GoodsDTO.toGoodsDTO(goodsEntity);
+            myGoodsList.add(myGoodsDTO);
+        }
+
+        return myGoodsList;
+    }
+
+    public void postGoods(GoodsDTO goods,String seller, long userId) {
+        GoodsEntity goodsEntity = GoodsEntity.toSaveEntity(goods, seller, userId);
+        trustMarketplaceRepository.save(goodsEntity);
+    }
+
+
+    public GoodsDTO findById(Long id) {
+        Optional<GoodsEntity> optionalGoodsEntity = trustMarketplaceRepository.findById(id);
+        if (optionalGoodsEntity.isPresent()) {
+            GoodsEntity goodsEntity = optionalGoodsEntity.get();
+            return GoodsDTO.toGoodsDTO(goodsEntity);
+        } else {
+            return null;
+        }
+    }
+
+    public void update(GoodsDTO goodsDTO, String seller, long userId) {
+        GoodsEntity goodsEntity = GoodsEntity.toUpdateEntity(goodsDTO, seller, userId);
         trustMarketplaceRepository.save(goodsEntity);
     }
 }

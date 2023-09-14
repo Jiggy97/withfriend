@@ -1,9 +1,7 @@
 package kumbayah.withfriend.controller.trust_marketplace;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpSession;
 import kumbayah.withfriend.dto.kakao.KakaoDTO;
-import kumbayah.withfriend.dto.trust_marketplace.GoodsListDTO;
 import kumbayah.withfriend.service.kakao.KakaoService;
 import kumbayah.withfriend.service.trust_marketplace.TrustMarketplaceService;
 
@@ -36,7 +34,7 @@ public class TrustMarketplaceController {
 
     @GetMapping("/allGoods")
     public String findAll(Model model) {
-        List<GoodsListDTO> goodsList = trustMarketplaceService.findAll();
+        List<GoodsDTO> goodsList = trustMarketplaceService.findAll();
         model.addAttribute("goodsList", goodsList);
 
         return "allGoods";
@@ -46,11 +44,20 @@ public class TrustMarketplaceController {
     public String findFriendsGoods(HttpSession session, Model model) throws Exception {
         String accessToken = (String) session.getAttribute("access_token");
         String buyer = kakaoService.getUserInfoWithToken(accessToken).getNickname();
-        List<GoodsListDTO> goodsListOfFriends = trustMarketplaceService.findGoodsOfFriend(accessToken);
-        model.addAttribute("goodsListOfFriends", goodsListOfFriends);
+        List<GoodsDTO> friendsGoodsList = trustMarketplaceService.findFriendsGoods(accessToken);
+        model.addAttribute("friendsGoodsList", friendsGoodsList);
         model.addAttribute("buyer", buyer);
 
         return "friendsGoods";
+    }
+
+    @GetMapping("/myGoods")
+    public String findMyGoods(HttpSession session, Model model) throws Exception {
+        long userId = (Long) session.getAttribute("user_id" );
+        List<GoodsDTO> myGoodsList = trustMarketplaceService.findMyGoods(userId);
+        model.addAttribute("myGoodsList", myGoodsList);
+
+        return "myGoodsList";
     }
 
     @PostMapping("/goods")
@@ -59,10 +66,29 @@ public class TrustMarketplaceController {
         String accessToken = (String) session.getAttribute("access_token");
         KakaoDTO kakaoDTO = kakaoService.getUserInfoWithToken(accessToken);
         long userId = kakaoDTO.getId();
-        String nickname = kakaoDTO.getNickname();
-        trustMarketplaceService.postGoods(goods, nickname, userId);
-        List<GoodsListDTO> goodsList = trustMarketplaceService.findAll();
+        String seller = kakaoDTO.getNickname();
+        trustMarketplaceService.postGoods(goods, seller, userId);
+        List<GoodsDTO> goodsList = trustMarketplaceService.findAll();
         model.addAttribute("goodsList", goodsList);
+
+        return "trust_marketplace";
+    }
+
+    @GetMapping("/goods/{id}")
+    public String detailAndUpdate(@PathVariable Long id, Model model) {
+        GoodsDTO goods = trustMarketplaceService.findById(id);
+        model.addAttribute("goods", goods);
+
+        return "updateForm";
+    }
+
+    @PostMapping("/goods/")
+    public String updateGoods(@ModelAttribute GoodsDTO goodsDTO, HttpSession session, Model model) throws Exception {
+        String accessToken = (String) session.getAttribute("access_token");
+        KakaoDTO kakaoDTO = kakaoService.getUserInfoWithToken(accessToken);
+        long userId = kakaoDTO.getId();
+        String seller = kakaoDTO.getNickname();
+        trustMarketplaceService.update(goodsDTO, seller, userId);
 
         return "trust_marketplace";
     }
