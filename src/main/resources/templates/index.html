@@ -2,11 +2,57 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Main</title>
+    <title>flea friend</title>
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">-->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+        }
+
+        p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 18px;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <p><a th:href="@{|${kakaoUrl}|}">카카오로그인</a></p>
-    </div>
+<div class="container">
+    <h1>플리마켓 온라인 서비스</h1>
+    <p>로그인이 필요한 서비스입니다. 로그인을 해주세요.</p>
+    <p><a th:href="@{|${kakaoUrl}|}">카카오로그인</a></p>
+</div>
 </body>
 </html>

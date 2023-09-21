@@ -2,29 +2,77 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>flea friend</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h2 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        form {
+            text-align: center;
+            margin: 10px;
+        }
+
+        input[type="submit"] {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #E0F2F1;
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
-    <h2>신뢰 장터</h2>
-    <form th:action="@{/trust/goods}" method="get">
-        <input type="submit" value="상품 게시">
-    </form>
-    <br><br>
-    <form th:action="@{/trust/friendsGoods}" method="get">
-        <input type="submit" value="친구 상품 보기">
-    </form>
-    <br><br>
-    <form th:action="@{/trust/myGoods}" method="get">
-        <input type="submit" value="내 상품 보기">
-    </form>
-    <br><br>
-    <form th:action="@{/trust/allGoods}" method="get">
-        <input type="submit" value="모든 상품 보기">
-    </form>
-    <br><br>
-    <form th:action="@{/main/home}" method="get">
-        <input type="submit" value="홈화면으로">
-    </form>
-
+<h2>신뢰 장터</h2>
+<form th:action="@{/trust/goods}" method="get">
+    <input type="submit" value="상품 게시">
+</form>
+<form th:action="@{/trust/friendsGoods}" method="get">
+    <input type="submit" value="친구 상품 보기">
+</form>
+<form th:action="@{/trust/myGoods}" method="get">
+    <input type="submit" value="내 상품 보기">
+</form>
+<form th:action="@{/trust/allGoods}" method="get">
+    <input type="submit" value="모든 상품 보기">
+</form>
+<form th:action="@{/main/home}" method="get">
+    <input type="submit" value="홈화면으로">
+</form>
 </body>
 </html>

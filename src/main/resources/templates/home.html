@@ -2,31 +2,115 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>flea friend</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 150px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .animated-text {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 100px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nickname {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .action-button {
+            display: inline-block;
+            padding: 40px 400px; /* 크기 수정 */
+            background-color: #E0F2F1; /* 연한 하늘색 배경색 */
+            color: #333; /* 글자색 수정 */
+            font-size: 18px; /* 글자 크기 조정 */
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-button:hover {
+            background-color: #45a049;
+            color: #fff; /* 호버 시 글자색 변경 */
+        }
+
+        .action-form input[type="submit"] {
+            display: inline-block;
+            padding: 40px 400px; /* 크기 수정 */
+            background-color: #E0F2F1; /* 연한 하늘색 배경색 */
+            color: #333; /* 글자색 수정 */
+            font-size: 18px; /* 글자 크기 조정 */
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-form input[type="submit"]:hover {
+            background-color: #45a049;
+            color: #fff; /* 호버 시 글자색 변경 */
+        }
+    </style>
 </head>
 <body>
-    <p>로그인에 성공했습니다!!</p>
-    <p th:text="${kakaoInfo.nickname}"></p>
-    <p><a th:href="@{|${agreeUrl}|}">친구목록 동의</a></p>
-    <form th:action="@{/kakao/friendsInfo}" method="get">
-        <input type="submit" value="친구목록 불러오기">
-    </form>
+<div class="container">
+    <h1 class="animated-text">
+        <span class="animated-text" th:text="${kakaoInfo.nickname}"></span>님 환영합니다!
+    </h1>
 
-    <br><br>
+    <!--    <p class="nickname" th:text="${kakaoInfo.nickname}"></p>-->
 
-    <form th:action="@{/trust/}" method="get">
-        <input type="submit" value="신뢰 장터">
-    </form>
-
-
-    <br><br><br>
-
-
-    <form th:action="@{/kakao/logout}" method="get">
-        <input type="submit" value="로그아웃">
-    </form><br>
-    <form th:action="@{/kakao/unlink}" method="get">
-        <input type="submit" value="연결끊기">
-    </form>
+    <div class="button-container">
+        <a class="action-button" th:href="@{|${agreeUrl}|}">친구목록 동의</a>
+        <form class="action-form" th:action="@{/kakao/friendsInfo}" method="get">
+            <input type="submit" value="친구목록 불러오기">
+        </form>
+        <form class="action-form" th:action="@{/trust/}" method="get">
+            <input type="submit" value="신뢰 장터">
+        </form>
+        <form class="action-form" th:action="@{/kakao/logout}" method="get">
+            <input type="submit" value="로그아웃">
+        </form>
+        <form class="action-form" th:action="@{/kakao/unlink}" method="get">
+            <input type="submit" value="연결끊기">
+        </form>
+    </div>
+</div>
 </body>
 </html>
