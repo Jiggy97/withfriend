@@ -2,15 +2,72 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>신뢰 장터</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #333;
+            margin: 20px 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            max-width: 800px;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="submit"] {
+            padding: 8px 16px;
+            background-color: #45a049;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #333;
+        }
+    </style>
 </head>
 <body>
 <h2>신뢰 장터</h2>
-
 <form th:action="@{/trust/}" method="get">
     <input type="submit" value="돌아가기">
 </form>
-
 <table>
     <tr>
         <th>상품명</th>
@@ -22,7 +79,6 @@
     <tr th:each="goods: ${goodsList}">
         <td th:text="${goods.name}"></td>
         <td th:text="${goods.seller}"></td>
-        <!--            <td><a th:href="@{|/board/${board.id}|}" th:text="${board.boardTitle}"></a></td>-->
         <td th:text="${goods.price}"></td>
         <td th:text="${goods.description}"></td>
         <td th:text="${goods.stock}"></td>

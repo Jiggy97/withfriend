@@ -1,11 +1,11 @@
-package kumbayah.withfriend.controller.trust_marketplace;
+package kumbayah.withfriend.controller.trustMarketplace;
 
 import jakarta.servlet.http.HttpSession;
 import kumbayah.withfriend.dto.kakao.KakaoDTO;
 import kumbayah.withfriend.service.kakao.KakaoService;
 import kumbayah.withfriend.service.trust_marketplace.TrustMarketplaceService;
 
-import kumbayah.withfriend.dto.trust_marketplace.GoodsDTO;
+import kumbayah.withfriend.dto.trustMarketplace.GoodsDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +24,12 @@ public class TrustMarketplaceController {
 
     @GetMapping("/goods")
     public String postForm() {
-        return "post-form";
+        return "postForm";
     }
 
     @GetMapping("/")
     public String trustMarket() {
-        return "trust_marketplace";
+        return "trustMarketplace";
     }
 
     @GetMapping("/allGoods")
@@ -71,7 +71,7 @@ public class TrustMarketplaceController {
         List<GoodsDTO> goodsList = trustMarketplaceService.findAll();
         model.addAttribute("goodsList", goodsList);
 
-        return "trust_marketplace";
+        return "trustMarketplace";
     }
 
     @GetMapping("/goods/{id}")
@@ -90,6 +90,6 @@ public class TrustMarketplaceController {
         String seller = kakaoDTO.getNickname();
         trustMarketplaceService.update(goodsDTO, seller, userId);
 
-        return "trust_marketplace";
+        return "trustMarketplace";
     }
 }

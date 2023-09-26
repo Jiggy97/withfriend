@@ -1,6 +1,6 @@
-package kumbayah.withfriend.dto.trust_marketplace;
+package kumbayah.withfriend.dto.trustMarketplace;
 
-import kumbayah.withfriend.entity.trust_marketplace.GoodsEntity;
+import kumbayah.withfriend.entity.trustMarketplace.GoodsEntity;
 
 public class GoodsDTO {
     private long id;

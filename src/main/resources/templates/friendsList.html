@@ -2,19 +2,61 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>친구 목록</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-<tr>
-    <th>id</th>
-    <th>profile_nickname</th>
-</tr>
-<br>
-<!--    for each 와 같음   -->
-<tr th:each="info: ${friendsInfo.elements}">
-    <td th:text="${info.id}"></td>
-    <td th:text="${info.profile_nickname}"></td>
-    <br>
-</tr>
+<h1>친구 목록</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>닉네임</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 반복문을 사용하여 친구 정보 표시 -->
+    <tr th:each="info: ${friendsInfo.elements}">
+        <td th:text="${info.profile_nickname}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

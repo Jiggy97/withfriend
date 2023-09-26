@@ -1,8 +1,8 @@
-package kumbayah.withfriend.entity.trust_marketplace;
+package kumbayah.withfriend.entity.trustMarketplace;
 
 
 import jakarta.persistence.*;
-import kumbayah.withfriend.dto.trust_marketplace.GoodsDTO;
+import kumbayah.withfriend.dto.trustMarketplace.GoodsDTO;
 import kumbayah.withfriend.entity.BaseEntity;
 
 @Entity

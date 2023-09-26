@@ -2,14 +2,81 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Friends Goods</title>
+    <title>친구 상품 목록</title>
     <!-- jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <!-- iamport.payment.js -->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #333;
+            margin: 20px 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            max-width: 800px;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #45a049;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[disabled] {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        .alert-message {
+            font-size: 14px;
+            color: #ff0000;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
+<h2>친구 상품 목록</h2>
 <form th:action="@{/trust/}" method="get">
     <input type="submit" value="돌아가기">
 </form>
@@ -24,17 +91,18 @@
     <tr th:each="goods: ${friendsGoodsList}">
         <td th:text="${goods.name}"></td>
         <td th:text="${goods.seller}"></td>
-        <!--            <td><a th:href="@{|/board/${board.id}|}" th:text="${board.boardTitle}"></a></td>-->
         <td th:text="${goods.price}"></td>
         <td th:text="${goods.description}"></td>
         <td th:text="${goods.stock}"></td>
         <td>
             <button onclick="payRequest(this)"
-                th:attr="data-goods-name=${goods.name},
-                        data-goods-price=${goods.price},
-                        data-goods-stock=${goods.stock}">
+                    th:attr="data-goods-name=${goods.name},
+                            data-goods-price=${goods.price},
+                            data-goods-stock=${goods.stock}"
+                    th:disabled="${goods.stock <= 0}">
                 구매하기
             </button>
+            <p class="alert-message" th:if="${goods.stock <= 0}">재고 부족</p>
         </td>
     </tr>
 </table>

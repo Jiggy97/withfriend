@@ -1,6 +1,6 @@
-package kumbayah.withfriend.repository.trust_marketplace;
+package kumbayah.withfriend.repository.trustMarketplace;
 
-import kumbayah.withfriend.entity.trust_marketplace.GoodsEntity;
+import kumbayah.withfriend.entity.trustMarketplace.GoodsEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
