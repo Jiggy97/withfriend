@@ -2,7 +2,7 @@ package kumbayah.withfriend.service.trust_marketplace;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import kumbayah.withfriend.dto.trustMarketplace.GoodsDTO;
-import kumbayah.withfriend.entity.trustMarketplace.GoodsEntity;
+import kumbayah.withfriend.entity.user.GoodsEntity;
 import kumbayah.withfriend.repository.trustMarketplace.TrustMarketplaceRepository;
 import kumbayah.withfriend.service.kakao.KakaoService;
 import org.springframework.stereotype.Service;
