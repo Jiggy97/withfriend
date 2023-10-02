@@ -7,19 +7,59 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
-            margin: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            margin: 0;
+            padding: 0;
         }
 
+        /* 헤더 스타일 */
+        .header {
+            background-color: #f5f5f5;
+            color: #333;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column; /* 횡에서 종으로 변경 */
+            align-items: center; /* 가운데 정렬 */
+        }
+
+        /* 포인트 정보 스타일 */
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: auto; /* 포인트 정보와 버튼 사이 여백 조절 */
+        }
+
+        /* 버튼 스타일 */
+        .point-button {
+            background-color: #E0F2F1;
+            color: #333;
+            padding: 10px 20px; /* 버튼 크기 조절 */
+            font-size: 18px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .point-button:hover {
+            background-color: #45a049;
+            color: #fff;
+        }
+
+        /* 컨테이너 스타일 */
         .container {
             text-align: center;
             background-color: #fff;
             padding: 150px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 120px;
         }
 
         .animated-text {
@@ -53,10 +93,10 @@
 
         .action-button {
             display: inline-block;
-            padding: 40px 400px; /* 크기 수정 */
-            background-color: #E0F2F1; /* 연한 하늘색 배경색 */
-            color: #333; /* 글자색 수정 */
-            font-size: 18px; /* 글자 크기 조정 */
+            padding: 40px 400px;
+            background-color: #E0F2F1;
+            color: #333;
+            font-size: 18px;
             text-decoration: none;
             font-weight: bold;
             border-radius: 5px;
@@ -65,15 +105,15 @@
 
         .action-button:hover {
             background-color: #45a049;
-            color: #fff; /* 호버 시 글자색 변경 */
+            color: #fff;
         }
 
         .action-form input[type="submit"] {
             display: inline-block;
-            padding: 40px 400px; /* 크기 수정 */
-            background-color: #E0F2F1; /* 연한 하늘색 배경색 */
-            color: #333; /* 글자색 수정 */
-            font-size: 18px; /* 글자 크기 조정 */
+            padding: 40px 400px;
+            background-color: #E0F2F1;
+            color: #333;
+            font-size: 18px;
             text-decoration: none;
             font-weight: bold;
             border: none;
@@ -84,18 +124,22 @@
 
         .action-form input[type="submit"]:hover {
             background-color: #45a049;
-            color: #fff; /* 호버 시 글자색 변경 */
+            color: #fff;
         }
     </style>
 </head>
 <body>
-<div class="container">
+<div class="header">
+    <div class="user-info">
+        <span class="point-info">포인트: 100</span>
+        <a class="point-button" href="#">포인트 충전</a>
+    </div>
     <h1 class="animated-text">
         <span class="animated-text" th:text="${kakaoInfo.nickname}"></span>님 환영합니다!
     </h1>
 
-    <!--    <p class="nickname" th:text="${kakaoInfo.nickname}"></p>-->
-
+</div>
+<div class="container">
     <div class="button-container">
         <a class="action-button" th:href="@{|${agreeUrl}|}">친구목록 동의</a>
         <form class="action-form" th:action="@{/kakao/friendsInfo}" method="get">
