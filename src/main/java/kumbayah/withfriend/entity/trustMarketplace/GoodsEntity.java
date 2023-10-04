@@ -1,4 +1,4 @@
-package kumbayah.withfriend.entity.user;
+package kumbayah.withfriend.entity.trustMarketplace;
 
 
 import jakarta.persistence.*;
