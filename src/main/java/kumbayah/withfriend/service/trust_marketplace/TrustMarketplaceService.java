@@ -2,7 +2,7 @@ package kumbayah.withfriend.service.trust_marketplace;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import kumbayah.withfriend.dto.trustMarketplace.GoodsDTO;
-import kumbayah.withfriend.entity.user.GoodsEntity;
+import kumbayah.withfriend.entity.trustMarketplace.GoodsEntity;
 import kumbayah.withfriend.repository.trustMarketplace.TrustMarketplaceRepository;
 import kumbayah.withfriend.service.kakao.KakaoService;
 import org.springframework.stereotype.Service;
@@ -47,7 +47,7 @@ public class TrustMarketplaceService {
         return friendGoodsList;
     }
 
-    public List<GoodsDTO> findMyGoods(long userId) throws JsonProcessingException {
+    public List<GoodsDTO> findMyGoods(long userId) {
         List<GoodsEntity> goodsEntityList = trustMarketplaceRepository.findAllByUserId(userId);
         List<GoodsDTO> myGoodsList = new ArrayList<>();
         for (GoodsEntity goodsEntity : goodsEntityList) {
