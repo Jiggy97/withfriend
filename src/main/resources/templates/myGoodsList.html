@@ -62,11 +62,25 @@
     button:hover {
         background-color: #333;
     }
+
+    input[type="submit"] {
+            padding: 8px 16px;
+            background-color: #45a049;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #333;
+        }
   </style>
 </head>
 <body>
 <h2>친구 상품 목록</h2>
-<form th:action="@{/trust/}" method="get">
+<form th:action="@{/main/home}" method="get">
   <input type="submit" value="돌아가기">
 </form>
 <table>

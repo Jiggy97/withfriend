@@ -3,15 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <title>post</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f2f2f2;
+          margin: 0;
+          padding: 80px;
+        }
+
+        .container {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 50px 50px;
+          background-color: #fff;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          border-radius: 5px;
+          text-align: center; /* 중앙 정렬을 위해 추가 */
+        }
+
+        h1 {
+          text-align: center;
+          color: #333;
+        }
+
+        form {
+          margin-top: 20px;
+        }
+
+        label {
+          font-weight: bold;
+          color: #555;
+          display: block; /* 한 줄씩 표시되도록 수정 */
+          margin-bottom: 5px; /* 레이블 간격을 조절 */
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          font-size: 16px;
+        }
+
+        input[type="submit"] {
+          padding: 10px 20px;
+          background-color: #45a049;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 18px;
+          transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+          background-color: #333;
+        }
+
+        .input {
+          display: block; /* 한 줄씩 표시되도록 */
+          margin: 0 auto; /* 수평 가운데 정렬 */
+          width: 50%; /* 원하는 너비로 조절 */
+        }
+    </style>
 </head>
 <body>
-<form action="/trust/goods/" method="post">
-    <input type="hidden" name="id" th:value="${goods.id}">
-    name: <input type="text" name="name" th:value="${goods.name}" required> <br>
-    price: <input type="number" name="price" th:value="${goods.price}" required> <br>
-    description: <textarea name="description" cols="30" rows="10" th:utext="${goods.description}" required></textarea> <br>
-    stock: <input type="number" name="stock" th:value="${goods.stock}" required> <br>
-    <input type="submit" value="goods 수정">
-</form>
+<div class="container">
+    <form th:action="@{/trust/myGoods}" method="get">
+        <input type="submit" value="돌아가기">
+    </form>
+    <form action="/trust/goods/" method="post">
+        <input type="hidden" name="id" th:value="${goods.id}">
+        <label for="name">상품 이름</label>
+        <input type="text" name="name" id="name" th:value="${goods.name}" required> <br>
+        <label for="price">가격</label>
+        <input class="input" type="number" name="price" id="price" th:value="${goods.price}" required><br>
+        <label for="description">상품 설명</label>
+        <textarea class="input" name="description" id="description" cols="30" rows="10" th:utext="${goods.description}" required></textarea><br>
+        <label for="stock">재고</label>
+        <input class="input" type="number" name="stock" id="stock" th:value="${goods.stock}" required><br>
+        <input type="submit" value="goods 수정">
+    </form>
+</div>
 </body>
 </html>

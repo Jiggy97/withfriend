@@ -6,8 +6,6 @@
     <!-- jQuery -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <!-- iamport.payment.js -->
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -73,11 +71,50 @@
             color: #ff0000;
             margin-top: 5px;
         }
+
+        input[type="submit"] {
+            padding: 8px 16px;
+            background-color: #45a049;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #333;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: auto; /* 오른쪽에 밀착시키기 위한 스타일 */
+        }
+
+        /* 버튼 스타일 */
+        .point-button {
+            background-color: #3e8740;
+            color: #fff;
+            padding: 5px 10px; /* 버튼 크기 조절 */
+            font-size: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .point-button:hover {
+            background-color: #333;
+        }
     </style>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 </head>
 <body>
 <h2>친구 상품 목록</h2>
-<form th:action="@{/trust/}" method="get">
+<form th:action="@{/main/home}" method="get">
     <input type="submit" value="돌아가기">
 </form>
 <table>
@@ -87,6 +124,12 @@
         <th>가격</th>
         <th>설명</th>
         <th>수량</th>
+        <th>
+            <div class="user-info">
+                <span class="point-info">잔여 포인트: 100</span>
+                <a class="point-button" href="#">포인트 충전</a>
+            </div>
+        </th>
     </tr>
     <tr th:each="goods: ${friendsGoodsList}">
         <td th:text="${goods.name}"></td>

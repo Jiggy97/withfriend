@@ -68,10 +68,14 @@ public class TrustMarketplaceController {
         long userId = kakaoDTO.getId();
         String seller = kakaoDTO.getNickname();
         trustMarketplaceService.postGoods(goods, seller, userId);
-        List<GoodsDTO> goodsList = trustMarketplaceService.findAll();
-        model.addAttribute("goodsList", goodsList);
 
-        return "trustMarketplace";
+        KakaoDTO kakaoInfo = kakaoService.getUserInfoWithToken(accessToken);
+        model.addAttribute("kakaoInfo", kakaoInfo);
+
+        String agreeUrl = kakaoService.getFriendsInfo();
+        model.addAttribute("agreeUrl", agreeUrl);
+
+        return "home";
     }
 
     @GetMapping("/goods/{id}")
@@ -90,6 +94,9 @@ public class TrustMarketplaceController {
         String seller = kakaoDTO.getNickname();
         trustMarketplaceService.update(goodsDTO, seller, userId);
 
-        return "trustMarketplace";
+        List<GoodsDTO> myGoodsList = trustMarketplaceService.findMyGoods(userId);
+        model.addAttribute("myGoodsList", myGoodsList);
+
+        return "myGoodsList";
     }
 }
