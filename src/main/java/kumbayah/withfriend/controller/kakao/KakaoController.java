@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpSession;
 import kumbayah.withfriend.dto.kakao.KakaoDTO;
 import kumbayah.withfriend.dto.kakao.KakaoFriendsInfoDTO;
 import kumbayah.withfriend.service.kakao.KakaoService;
+import kumbayah.withfriend.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,15 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class KakaoController {
 
     private final KakaoService kakaoService;
+    private final UserService userService;
 
-    KakaoController(KakaoService kakaoService) {
+    KakaoController(KakaoService kakaoService, UserService userService) {
         this.kakaoService = kakaoService;
+        this.userService = userService;
     }
 
     @RequestMapping("/callback")
     public String home(HttpServletRequest request, HttpSession session, Model model) throws Exception {
         KakaoDTO kakaoInfo = kakaoService.getKakaoInfo(request.getParameter("code"), session);
         session.setAttribute("user_id", kakaoInfo.getId());
+
+        userService.register(kakaoInfo);
+
         model.addAttribute("kakaoInfo", kakaoInfo);
 
         String agreeUrl = kakaoService.getFriendsInfo();
