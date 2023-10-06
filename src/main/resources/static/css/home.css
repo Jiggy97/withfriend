@@ -54,6 +54,7 @@ body {
 
 /* 버튼 스타일 */
 .point-button {
+    display: inline-block;
     background-color: #E0F2F1;
     color: #333;
     padding: 10px 20px; /* 버튼 크기 조절 */
@@ -62,12 +63,26 @@ body {
     font-weight: bold;
     border: 1px solid transparent; /* 테두리 두께를 1px로 설정하고 색상을 투명으로 만듭니다 */
     border-radius: 5px;
+    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .point-button:hover {
     background-color: #E9967A;
     color: #fff;
+}
+
+/* 팝업 스타일 */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
 }
 
 .button-container {

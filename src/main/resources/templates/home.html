@@ -14,14 +14,14 @@
 <body>
 <div class="header">
     <div class="user-info">
-        <span class="point-info">포인트: 100</span>
-        <button class="point-button" onclick="payRequest(this)">
+        <span class="point-info" th:text="'point: ' + ${userDTO.point}"></span>
+        <button class="point-button" onclick="requestPoint(this)">
             포인트 충전
         </button>
     </div>
 
     <h1 class="animated-text">
-        <span class="animated-text" th:text="${kakaoInfo.nickname}"></span>님 환영합니다!
+        <span class="animated-text" th:text="${userDTO.nickname}"></span>님 환영합니다!
     </h1>
 
     <div class="button-container">
