@@ -6,111 +6,10 @@
     <!-- jQuery -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <!-- iamport.payment.js -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        h2 {
-            font-size: 28px;
-            color: #333;
-            margin: 20px 0;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 80%;
-            max-width: 800px;
-            margin-top: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #333;
-            color: #fff;
-        }
-
-        tr:hover {
-            background-color: #f2f2f2;
-        }
-
-        button {
-            padding: 8px 16px;
-            background-color: #45a049;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button[disabled] {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        button:hover {
-            background-color: #333;
-        }
-
-        .alert-message {
-            font-size: 14px;
-            color: #ff0000;
-            margin-top: 5px;
-        }
-
-        input[type="submit"] {
-            padding: 8px 16px;
-            background-color: #45a049;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #333;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-left: auto; /* 오른쪽에 밀착시키기 위한 스타일 */
-        }
-
-        /* 버튼 스타일 */
-        .point-button {
-            background-color: #3e8740;
-            color: #fff;
-            padding: 5px 10px; /* 버튼 크기 조절 */
-            font-size: 15px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .point-button:hover {
-            background-color: #333;
-        }
-    </style>
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <link th:href="@{/css/friendsGoods.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/friendsGoods.js}"></script>
 </head>
 <body>
 <h2>친구 상품 목록</h2>
@@ -150,43 +49,4 @@
     </tr>
 </table>
 </body>
-<script>
-    var IMP = window.IMP;
-    IMP.init("imp18734116")
-    var buyer = "[[${buyer}]]";
-
-    function payRequest(button) {
-        // 클릭한 버튼에서 data-goods-name 및 data-goods-price 값을 가져옵니다.
-        var goodsName = button.getAttribute('data-goods-name');
-        var goodsPrice = button.getAttribute('data-goods-price');
-        var goodsStock = button.getAttribute('data-goods-stock');
-
-        if (goodsStock <= 0) {
-            alert('해당 상품은 재고 부족으로 구매할 수 없습니다.');
-        } else {
-            var today = new Date();
-            var hours = today.getHours(); // 시
-            var minutes = today.getMinutes();  // 분
-            var seconds = today.getSeconds();  // 초
-            var milliseconds = today.getMilliseconds();
-            var makeMerchantUid = hours +  minutes + seconds + milliseconds;
-
-            IMP.request_pay({
-                pg: "kakaopay.TC0ONETIME",
-                pay_method: "card",
-                merchant_uid: "IMP" + makeMerchantUid,
-                name: goodsName,
-                amount: goodsPrice,
-                buyer_name: buyer,
-            }, function (rsp) { // callback
-                //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
-                if (rsp.success) {
-                    console.log(rsp);
-                } else {
-                    console.log(rsp);
-                }
-            });
-        }
-    }
-</script>
 </html>
