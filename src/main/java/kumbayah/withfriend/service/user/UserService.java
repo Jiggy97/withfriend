@@ -13,11 +13,19 @@ public class UserService {
     private UserRepository userRepository;
 
     public void register(KakaoDTO kakaoDTO) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUserId(kakaoDTO.getId());
-        userDTO.setNickname(kakaoDTO.getNickname());
+        UserDTO isFirstLogin = findByUserId(kakaoDTO.getId());
+        if (isFirstLogin == null) {
+            UserDTO userDTO = new UserDTO();
+            userDTO.setUserId(kakaoDTO.getId());
+            userDTO.setNickname(kakaoDTO.getNickname());
 
-        UserEntity userEntity = UserEntity.toSaveEntity(userDTO);
-        userRepository.save(userEntity);
+            UserEntity userEntity = UserEntity.toSaveEntity(userDTO);
+            userRepository.save(userEntity);
+        }
+    }
+
+    public UserDTO findByUserId(long userId) {
+        UserEntity userEntity = userRepository.findByUserId(userId);
+        return UserDTO.toUserDTO(userEntity);
     }
 }
