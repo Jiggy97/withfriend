@@ -2,10 +2,12 @@ package kumbayah.withfriend.controller.trustMarketplace;
 
 import jakarta.servlet.http.HttpSession;
 import kumbayah.withfriend.dto.kakao.KakaoDTO;
+import kumbayah.withfriend.dto.user.UserDTO;
 import kumbayah.withfriend.service.kakao.KakaoService;
 import kumbayah.withfriend.service.trust_marketplace.TrustMarketplaceService;
 
 import kumbayah.withfriend.dto.trustMarketplace.GoodsDTO;
+import kumbayah.withfriend.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +19,12 @@ import java.util.List;
 public class TrustMarketplaceController {
     private final TrustMarketplaceService trustMarketplaceService;
     private final KakaoService kakaoService;
-    public TrustMarketplaceController(TrustMarketplaceService trustMarketplaceService, KakaoService kakaoService) {
+    private final UserService userService;
+
+    public TrustMarketplaceController(TrustMarketplaceService trustMarketplaceService, KakaoService kakaoService, UserService userService) {
         this.trustMarketplaceService = trustMarketplaceService;
         this.kakaoService = kakaoService;
+        this.userService = userService;
     }
 
     @GetMapping("/goods")
@@ -70,7 +75,8 @@ public class TrustMarketplaceController {
         trustMarketplaceService.postGoods(goods, seller, userId);
 
         KakaoDTO kakaoInfo = kakaoService.getUserInfoWithToken(accessToken);
-        model.addAttribute("kakaoInfo", kakaoInfo);
+        UserDTO userDTO = userService.findByUserId(kakaoInfo.getId());
+        model.addAttribute("userDTO", userDTO);
 
         String agreeUrl = kakaoService.getFriendsInfo();
         model.addAttribute("agreeUrl", agreeUrl);

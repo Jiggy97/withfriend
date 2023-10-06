@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import kumbayah.withfriend.dto.kakao.KakaoDTO;
 import kumbayah.withfriend.dto.kakao.KakaoFriendsInfoDTO;
+import kumbayah.withfriend.dto.user.UserDTO;
 import kumbayah.withfriend.service.kakao.KakaoService;
 import kumbayah.withfriend.service.user.UserService;
 import org.springframework.stereotype.Controller;
@@ -29,8 +30,9 @@ public class KakaoController {
         session.setAttribute("user_id", kakaoInfo.getId());
 
         userService.register(kakaoInfo);
+        UserDTO userDTO = userService.findByUserId(kakaoInfo.getId());
 
-        model.addAttribute("kakaoInfo", kakaoInfo);
+        model.addAttribute("userDTO", userDTO);
 
         String agreeUrl = kakaoService.getFriendsInfo();
         model.addAttribute("agreeUrl", agreeUrl);
