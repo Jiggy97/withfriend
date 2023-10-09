@@ -15,7 +15,7 @@
 <div class="header">
     <div class="user-info">
         <span class="point-info" th:text="'point: ' + ${userDTO.point}"></span>
-        <button class="point-button" onclick="requestPoint(this)">
+        <button class="point-button" onclick="requestPoint(this)" th:attr="data-user-name=${userDTO.nickname}">
             포인트 충전
         </button>
     </div>
