@@ -4,6 +4,7 @@ const homeUrl = "/main/home";
 
 const requestPoint = (button) => {
     var userName = button.getAttribute('data-user-name');
+    var userId = button.getAttribute('data-user-id');
     let chargePoint;
 
     while (true) {
@@ -24,10 +25,10 @@ const requestPoint = (button) => {
         }
     }
 
-    requestPay(chargePoint, userName);
+    requestPay(chargePoint, userId, userName);
 }
 
-function requestPay(chargePoint, userName) {
+function requestPay(chargePoint, userId, userName) {
     var today = new Date();
     var hours = today.getHours(); // 시
     var minutes = today.getMinutes();  // 분
@@ -42,54 +43,60 @@ function requestPay(chargePoint, userName) {
         name: "charge trust market point",
         amount: chargePoint,
         buyer_name: userName,
-    }, function (rsp) { // callback
+        m_redirect_url: "localhost:8083/home/main"
+    }, async function (rsp) { // callback
         //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
         if (rsp.success) {
-          const requestData = {
-            imp_uid: rsp.imp_uid,
-            merchant_uid: rsp.merchant_uid,
-            chargePoint: chargePoint
-          };
-
-          fetch("/payment/point", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(requestData)
-          })
-            .then((response) => {
-              if (response.ok) {
-                return response.json();
-              } else {
-                throw new Error("결제에 실패하였습니다.");
-              }
+            // 인증 토큰 발급 받기
+            axios({
+                url: "/portone/token",
+                method: "get"
             })
-            .then((data) => {
-              alert(`결제에 성공하였습니다. 성공 내용: ${JSON.stringify(data)}`);
+            .then(response => {
+                // 응답을 처리하는 코드
+                console.log(response.data); // 응답 데이터 출력
+                var accessToken = response.data.response.access_token;
+                console.log(accessToken);
+                axios({
+                    url: "https://api.iamport.kr/payments/" + rsp.imp_uid,
+                    method: "get", // GET method
+                    headers: {
+                      // "Content-Type": "application/json"
+                      "Content-Type": "application/json",
+                      // 발행된 액세스 토큰
+                      "Authorization": "Bearer " + accessToken
+                    }
+                  }).then(response => {
+                      console.log(response.data); // 응답 데이터 출력
+                  })
+                  .catch(error => {
+                      // 오류 처리 코드
+                      console.error(error);
+                  });
             })
-            .catch((error) => {
-              alert(`결제에 실패하였습니다. 에러 내용: ${error.message}`);
+            .catch(error => {
+                // 오류 처리 코드
+                console.error(error);
             });
-        } else {
-          alert(`결제에 실패하였습니다. 에러 내용: ${rsp.error_msg}`);
-        }
-//        if (rsp.success) {
-//            // axios로 HTTP 요청
+
+
+            // axios로 HTTP 요청
 //            axios({
-//                url: "/home/main",
+//                url: "/payment/point",
 //                method: "post",
 //                headers: { "Content-Type": "application/json" },
 //                data: {
-//                    chargePoint: chargePoint,
 //                    imp_uid: rsp.imp_uid,
-//                    merchant_uid: rsp.merchant_uid
+//                    merchant_uid: rsp.merchant_uid,
+//                    chargePoint: chargePoint,
+//                    userId: userId
 //                }
 //            }).then((data) => {
 //                alert(`결제에 성공하였습니다. 성공 내용: ${rsp}`);
 //            })
-//        } else {
-//            alert(`결제에 실패하였습니다. 에러 내용: ${rsp.error_msg}`);
-//        }
+            alert(`결제에 성공하였습니다. 성공 내용: ${rsp}`);
+        } else {
+            alert(`결제에 실패하였습니다. 에러 내용: ${rsp.error_msg}`);
+        }
     });
 }

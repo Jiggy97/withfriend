@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>flea friend</title>
-    <!-- jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- iamport.payment.js -->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
@@ -15,7 +14,9 @@
 <div class="header">
     <div class="user-info">
         <span class="point-info" th:text="'point: ' + ${userDTO.point}"></span>
-        <button class="point-button" onclick="requestPoint(this)" th:attr="data-user-name=${userDTO.nickname}">
+        <button class="point-button" onclick="requestPoint(this)"
+                th:attr="data-user-name=${userDTO.nickname},
+                        data-user-id=${userDTO.userId}">
             포인트 충전
         </button>
     </div>

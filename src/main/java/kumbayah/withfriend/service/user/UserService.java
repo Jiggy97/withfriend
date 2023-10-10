@@ -28,4 +28,10 @@ public class UserService {
         UserEntity userEntity = userRepository.findByUserId(userId);
         return UserDTO.toUserDTO(userEntity);
     }
+
+    public void chargePoint(long userId, double chargePoint) {
+        UserEntity userEntity = userRepository.findByUserId(userId);
+        userEntity.setPoint(chargePoint);
+        userRepository.save(userEntity);
+    }
 }

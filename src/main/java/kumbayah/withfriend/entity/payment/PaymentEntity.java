@@ -1,11 +1,10 @@
 package kumbayah.withfriend.entity.payment;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import kumbayah.withfriend.dto.payment.PaymentDTO;
 
+@Entity
+@Table(name = "payment_table")
 public class PaymentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
