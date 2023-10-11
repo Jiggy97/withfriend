@@ -4,9 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
-import kumbayah.withfriend.controller.portone.PortOneController;
 import kumbayah.withfriend.entity.MsgEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.http.*;
@@ -19,9 +17,6 @@ public class PortOneService {
     private String restApiKey;
     @Value("${portone.secret}")
     private String restApiSecret;
-
-    @Autowired
-    private PortOneController portOneController;
 
     public MsgEntity getToken(String impUid, double chargePoint, HttpSession session) throws JsonProcessingException {
         // 요청 바디에 API 키와 시크릿을 추가
@@ -54,7 +49,7 @@ public class PortOneService {
             return new MsgEntity(true, "결제 요청이 성공적으로 인증되었습니다.");
         } else {
             // 요청이 실패한 경우 예외 처리
-            throw new RuntimeException("Iamport API 요청 실패");
+            throw new RuntimeException("Iamport 토큰 발급 API 요청 실패");
         }
     }
 
@@ -78,7 +73,7 @@ public class PortOneService {
             return jsonNode.path("response").path("amount").asDouble();
         } else {
             // 요청이 실패한 경우 예외 처리
-            throw new RuntimeException("Iamport API 요청 실패");
+            throw new RuntimeException("Iamport 단건 조회 API 요청 실패");
         }
     }
 }

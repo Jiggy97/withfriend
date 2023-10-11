@@ -1,7 +1,5 @@
 package kumbayah.withfriend.entity;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 public class MsgEntity {
     private boolean success;
     private String message;
