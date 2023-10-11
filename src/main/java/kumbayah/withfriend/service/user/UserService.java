@@ -13,7 +13,7 @@ public class UserService {
     private UserRepository userRepository;
 
     public void register(KakaoDTO kakaoDTO) {
-        UserDTO isFirstLogin = findByUserId(kakaoDTO.getId());
+        UserEntity isFirstLogin = userRepository.findByUserId(kakaoDTO.getId());
         if (isFirstLogin == null) {
             UserDTO userDTO = new UserDTO();
             userDTO.setUserId(kakaoDTO.getId());
@@ -31,6 +31,7 @@ public class UserService {
 
     public void chargePoint(long userId, double chargePoint) {
         UserEntity userEntity = userRepository.findByUserId(userId);
+        chargePoint += userEntity.getPoint();
         userEntity.setPoint(chargePoint);
         userRepository.save(userEntity);
     }
