@@ -31,10 +31,10 @@ const requestPoint = (button) => {
 function requestPay(chargePoint, userId, userName) {
     var today = new Date();
     var hours = today.getHours(); // 시
-    var minutes = today.getMinutes();  // 분
-    var seconds = today.getSeconds();  // 초
+    var minutes = today.getMinutes(); // 분
+    var seconds = today.getSeconds(); // 초
     var milliseconds = today.getMilliseconds();
-    var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+    var makeMerchantUid = hours + minutes + seconds + milliseconds;
 
     IMP.request_pay({
         pg: "kakaopay.TC0ONETIME",
@@ -44,58 +44,43 @@ function requestPay(chargePoint, userId, userName) {
         amount: chargePoint,
         buyer_name: userName,
         m_redirect_url: "localhost:8083/home/main"
-    }, async function (rsp) { // callback
+    }, async function(rsp) { // callback
         //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
         if (rsp.success) {
             // 인증 토큰 발급 받기
             axios({
-                url: "/portone/token",
-                method: "get"
-            })
-            .then(response => {
-                // 응답을 처리하는 코드
-                console.log(response.data); // 응답 데이터 출력
-                var accessToken = response.data.response.access_token;
-                console.log(accessToken);
-                axios({
-                    url: "https://api.iamport.kr/payments/" + rsp.imp_uid,
-                    method: "get", // GET method
-                    headers: {
-                      // "Content-Type": "application/json"
-                      "Content-Type": "application/json",
-                      // 발행된 액세스 토큰
-                      "Authorization": "Bearer " + accessToken
-                    }
-                  }).then(response => {
-                      console.log(response.data); // 응답 데이터 출력
-                  })
-                  .catch(error => {
-                      // 오류 처리 코드
-                      console.error(error);
-                  });
-            })
-            .catch(error => {
-                // 오류 처리 코드
-                console.error(error);
-            });
-
-
-            // axios로 HTTP 요청
-//            axios({
-//                url: "/payment/point",
-//                method: "post",
-//                headers: { "Content-Type": "application/json" },
-//                data: {
-//                    imp_uid: rsp.imp_uid,
-//                    merchant_uid: rsp.merchant_uid,
-//                    chargePoint: chargePoint,
-//                    userId: userId
-//                }
-//            }).then((data) => {
-//                alert(`결제에 성공하였습니다. 성공 내용: ${rsp}`);
-//            })
+                    url: "/portone/token?imp_uid=" +  rsp.imp_uid + "&charge_point= " + chargePoint,
+                    method: "get"
+                })
+                .then(response => {
+                    axios({
+                        url: "/payment/point",
+                        method: "post",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        data: {
+                            imp_uid: rsp.imp_uid,
+                            merchant_uid: rsp.merchant_uid,
+                            chargePoint: chargePoint,
+                            userId: userId
+                        }
+                    }).then((data) => {
+                        alert(`결제에 성공하였습니다. 성공 내용: ${rsp}`);
+                    })
+                    .catch(error => {
+                        console.log("결제 완료 시, db 저장 도중 오류");
+                        console.error(error);
+                    })
+                })
+                .catch(error => {
+                    console.log("토큰 발급 실패 시")
+                    console.error(error);
+                });
+            // portone에 결제 요청 성공 시
             alert(`결제에 성공하였습니다. 성공 내용: ${rsp}`);
         } else {
+            // portone에 결제 요청 실패 시
             alert(`결제에 실패하였습니다. 에러 내용: ${rsp.error_msg}`);
         }
     });
