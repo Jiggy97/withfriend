@@ -25,8 +25,8 @@
         <th>수량</th>
         <th>
             <div class="user-info">
-                <span class="point-info">잔여 포인트: 100</span>
-                <a class="point-button" href="#">포인트 충전</a>
+                <span class="point-info" th:text="'point: ' + ${userDTO.point}"></span>
+                <!-- 여기 포인트 충전 버튼을 만들어 -->
             </div>
         </th>
     </tr>
@@ -37,10 +37,12 @@
         <td th:text="${goods.description}"></td>
         <td th:text="${goods.stock}"></td>
         <td>
-            <button onclick="payRequest(this)"
-                    th:attr="data-goods-name=${goods.name},
+            <button onclick="payPoint(this)"
+                    th:attr="data-goods-id=${goods.id},
+                            data-goods-name=${goods.name},
                             data-goods-price=${goods.price},
-                            data-goods-stock=${goods.stock}"
+                            data-goods-stock=${goods.stock},
+                            data-buyer-id=${userDTO.id}"
                     th:disabled="${goods.stock <= 0}">
                 구매하기
             </button>

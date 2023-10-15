@@ -48,10 +48,11 @@ public class TrustMarketplaceController {
     @GetMapping("/friendsGoods")
     public String findFriendsGoods(HttpSession session, Model model) throws Exception {
         String accessToken = (String) session.getAttribute("access_token");
-        String buyer = kakaoService.getUserInfoWithToken(accessToken).getNickname();
+        KakaoDTO kakaoInfo = kakaoService.getUserInfoWithToken(accessToken);
+        UserDTO userDTO = userService.findByUserId(kakaoInfo.getId());
         List<GoodsDTO> friendsGoodsList = trustMarketplaceService.findFriendsGoods(accessToken);
         model.addAttribute("friendsGoodsList", friendsGoodsList);
-        model.addAttribute("buyer", buyer);
+        model.addAttribute("userDTO", userDTO);
 
         return "friendsGoods";
     }
