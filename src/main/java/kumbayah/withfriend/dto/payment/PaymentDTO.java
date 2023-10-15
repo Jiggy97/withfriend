@@ -15,11 +15,11 @@ public class PaymentDTO {
     public void setMerchantUid(String merchantUid) { this.merchantUid = merchantUid; }
     public void setChargePoint(double chargePoint) { this.chargePoint = chargePoint; }
 
-    public static PaymentDTO toPaymentDTO(RequestDataDTO requestDataDTO) {
+    public static PaymentDTO toPaymentDTO(PaymentRequestDataDTO paymentRequestDataDTO) {
         PaymentDTO paymentDTO = new PaymentDTO();
-        paymentDTO.setImpUid(requestDataDTO.getImpUid());
-        paymentDTO.setMerchantUid(requestDataDTO.getMerchantUid());
-        paymentDTO.setChargePoint(requestDataDTO.getChargePoint());
+        paymentDTO.setImpUid(paymentRequestDataDTO.getImpUid());
+        paymentDTO.setMerchantUid(paymentRequestDataDTO.getMerchantUid());
+        paymentDTO.setChargePoint(paymentRequestDataDTO.getChargePoint());
 
         return paymentDTO;
     }

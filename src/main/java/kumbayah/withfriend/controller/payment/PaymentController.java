@@ -1,12 +1,9 @@
 package kumbayah.withfriend.controller.payment;
 
-import jakarta.servlet.http.HttpSession;
-import kumbayah.withfriend.controller.MainController;
 import kumbayah.withfriend.dto.payment.PaymentDTO;
-import kumbayah.withfriend.dto.payment.RequestDataDTO;
+import kumbayah.withfriend.dto.payment.PaymentRequestDataDTO;
 import kumbayah.withfriend.service.payment.PaymentService;
 import kumbayah.withfriend.service.user.UserService;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,9 +18,9 @@ public class PaymentController {
     }
 
     @PostMapping("/point")
-    public void chargePage(@RequestBody RequestDataDTO requestDataDTO) {
-        PaymentDTO paymentDTO = PaymentDTO.toPaymentDTO(requestDataDTO);
+    public void chargePage(@RequestBody PaymentRequestDataDTO paymentRequestDataDTO) {
+        PaymentDTO paymentDTO = PaymentDTO.toPaymentDTO(paymentRequestDataDTO);
         paymentService.save(paymentDTO);
-        userService.chargePoint(requestDataDTO.getUserId(), requestDataDTO.getChargePoint());
+        userService.chargePoint(paymentRequestDataDTO.getUserId(), paymentRequestDataDTO.getChargePoint());
     }
 }
