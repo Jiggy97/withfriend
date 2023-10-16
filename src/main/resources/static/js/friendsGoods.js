@@ -11,9 +11,29 @@ function payPoint(button) {
     var goodsName = button.getAttribute('data-goods-name');
     var goodsPrice = button.getAttribute('data-goods-price');
     var goodsStock = button.getAttribute('data-goods-stock');
-    var buyerId = button.getAttribute('data-buyer-id');
+    var sellerUserId = button.getAttribute('data-seller-user-id');
+    var buyerUserId = button.getAttribute('data-buyer-user-id');
+    let purchaseQuan;
 
-    if (goodsStock <= 0) {
+    while (true) {
+            const userInput = prompt("구매할 개수를 입력해 주세요");
+
+            if (userInput === null) {
+                location.href = homeUrl;
+                return; // 사용자가 취소 버튼을 누른 경우 함수 종료
+            }
+
+            purchaseQuan = parseInt(userInput);
+
+            if (!isNaN(purchaseQuan)) {
+                // 숫자로 변환 가능한 경우
+                break; // 반복문 종료
+            } else {
+                alert("숫자를 입력해 주세요. (0 < 입력 가능 숫자 <= 남은 재고)"); // 숫자로 변환할 수 없는 경우 경고 메시지 출력
+            }
+        }
+
+    if (goodsStock <= 0 || goodsStock < purchaseQuan) {
         alert('해당 상품은 재고 부족으로 구매할 수 없습니다.');
     } else {
         axios({
@@ -27,8 +47,10 @@ function payPoint(button) {
                 goodsName: goodsName,
                 goodsPrice: goodsPrice,
                 goodsStock: goodsStock,
-                buyerId: buyerId,
-                makeMerchantUid: makeMerchantUid
+                purchaseQuan: purchaseQuan,
+                sellerUserId: sellerUserId,
+                buyerUserId: buyerUserId,
+                makeMerchantUid: makeMerchantUid,
             }
         }).then((data) => {
             console.log("유적 간 상품 거래 결제 성공");

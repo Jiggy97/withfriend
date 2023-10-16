@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>친구 상품 목록</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- jQuery -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <!-- iamport.payment.js -->
@@ -42,7 +43,8 @@
                             data-goods-name=${goods.name},
                             data-goods-price=${goods.price},
                             data-goods-stock=${goods.stock},
-                            data-buyer-id=${userDTO.id}"
+                            data-seller-user-id=${goods.userId},
+                            data-buyer-user-id=${userDTO.userId}"
                     th:disabled="${goods.stock <= 0}">
                 구매하기
             </button>
