@@ -50,8 +50,8 @@ function requestPay(chargePoint, userId, userName) {
         if (rsp.success) {
             // 인증 토큰 발급 받기
             axios({
-                    url: "/portone/token?imp_uid=" +  rsp.imp_uid + "&charge_point=" + chargePoint,
-                    method: "get"
+                url: "/portone/token?imp_uid=" +  rsp.imp_uid + "&charge_point=" + chargePoint,
+                method: "get"
                 }).then(response => {
                     console.log(response.data.success);
                     console.log(response.data.message);
