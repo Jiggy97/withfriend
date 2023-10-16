@@ -37,4 +37,18 @@ public class GoodsDTO {
 
         return goods;
     }
+
+    public static GoodsDTO toAfterTrade(GoodsEntity goodsEntity, int purchaseQuan) {
+        GoodsDTO goods = new GoodsDTO();
+        goods.setId(goodsEntity.getId());
+        goods.setSeller(goodsEntity.getSeller());
+        goods.setName(goodsEntity.getName());
+        goods.setPrice(goodsEntity.getPrice());
+        goods.setDescription(goodsEntity.getDescription());
+
+        int stock = goodsEntity.getStock() - purchaseQuan;
+        goods.setStock(stock);
+
+        return goods;
+    }
 }
