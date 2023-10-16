@@ -1,4 +1,4 @@
-package kumbayah.withfriend.service.trust_marketplace;
+package kumbayah.withfriend.service.trustMarketplace;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import kumbayah.withfriend.dto.trustMarketplace.GoodsDTO;
@@ -32,15 +32,14 @@ public class TrustMarketplaceService {
         return goodsList;
     }
 
-    public List<GoodsDTO> findFriendsGoods(String accessToken) throws JsonProcessingException {
+    public List<GoodsEntity> findFriendsGoods(String accessToken) throws JsonProcessingException {
         List<Long> friendIdList = kakaoService.getFriendIdList(accessToken);
         List<GoodsEntity> goodsEntityList = trustMarketplaceRepository.findAll();
-        List<GoodsDTO> friendGoodsList = new ArrayList<>();
+        List<GoodsEntity> friendGoodsList = new ArrayList<>();
         for (GoodsEntity goodsEntity : goodsEntityList) {
             if (friendIdList.contains(goodsEntity.getUserId())) {
                 // Entity > DTO 변환 제대로 이루어 졌는지
-                GoodsDTO friendGoodsDTO = GoodsDTO.toGoodsDTO(goodsEntity);
-                friendGoodsList.add(friendGoodsDTO);
+                friendGoodsList.add(goodsEntity);
             }
         }
 
