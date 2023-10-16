@@ -3,8 +3,9 @@ package kumbayah.withfriend.controller.trustMarketplace;
 import jakarta.servlet.http.HttpSession;
 import kumbayah.withfriend.dto.kakao.KakaoDTO;
 import kumbayah.withfriend.dto.user.UserDTO;
+import kumbayah.withfriend.entity.trustMarketplace.GoodsEntity;
 import kumbayah.withfriend.service.kakao.KakaoService;
-import kumbayah.withfriend.service.trust_marketplace.TrustMarketplaceService;
+import kumbayah.withfriend.service.trustMarketplace.TrustMarketplaceService;
 
 import kumbayah.withfriend.dto.trustMarketplace.GoodsDTO;
 import kumbayah.withfriend.service.user.UserService;
@@ -50,7 +51,7 @@ public class TrustMarketplaceController {
         String accessToken = (String) session.getAttribute("access_token");
         KakaoDTO kakaoInfo = kakaoService.getUserInfoWithToken(accessToken);
         UserDTO userDTO = userService.findByUserId(kakaoInfo.getId());
-        List<GoodsDTO> friendsGoodsList = trustMarketplaceService.findFriendsGoods(accessToken);
+        List<GoodsEntity> friendsGoodsList = trustMarketplaceService.findFriendsGoods(accessToken);
         model.addAttribute("friendsGoodsList", friendsGoodsList);
         model.addAttribute("userDTO", userDTO);
 
@@ -58,7 +59,7 @@ public class TrustMarketplaceController {
     }
 
     @GetMapping("/myGoods")
-    public String findMyGoods(HttpSession session, Model model) throws Exception {
+    public String findMyGoods(HttpSession session, Model model) {
         long userId = (Long) session.getAttribute("user_id" );
         List<GoodsDTO> myGoodsList = trustMarketplaceService.findMyGoods(userId);
         model.addAttribute("myGoodsList", myGoodsList);
