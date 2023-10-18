@@ -1,7 +1,7 @@
 # withfriend
 Electronic commerce with friend project
 
-
+### 개발 이슈
 | 🔥 이슈 | 해결 유무 | 접근 방법 |
 | --- | --- | --- |
 | 로그인 | o | 처음 소셜 API를 통해서 로그인을 구현 했을 때, 사용자가 로그인한 정보를 어떻게 계속 서버에 제공하지? 라는 고민을 했다. 다양한 정보를 검색하던 중 로그인 시 발급받은 access token을 브라우저 session에 저장하여 api를 호출할 때 인가하는 방법을 찾아냈다.  |
