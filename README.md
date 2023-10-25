@@ -29,21 +29,21 @@ withfriend 프로젝트의 [개발 회고](https://foreveryoung97.tistory.com/ca
 [entity 설계 및 테이블 설계에 관한 회고입니다.](https://foreveryoung97.tistory.com/110)
 본 프로젝트에서 테이블은 User, Payment, Goods, Trade 4개의 테이블로 구성되어 있으며 각 테이블의 역할은 다음과 같습니다.
 
-- user table
-![image](https://github.com/Jiggy97/withfriend/assets/79949843/e9e4f421-5240-4633-84c2-466761c92f8a)
-소셜 로그인을 통해 서비스에 접근한 사용자의 정보를 저장해 줍니다.
+- user table<br>
+<img src="https://github.com/Jiggy97/withfriend/assets/79949843/e9e4f421-5240-4633-84c2-466761c92f8a" width="300" height="200">
+<br>소셜 로그인을 통해 서비스에 접근한 사용자의 정보를 저장해 줍니다.
 
-- payment table
+- payment table<br>
 ![image](https://github.com/Jiggy97/withfriend/assets/79949843/269efcdc-bb3a-4661-a7c0-638903e39c68)
-상품 거래를 위해 point를 충전할 때 성공한 결제 요청에 대한 정보를 담고 있습니다.
+<br>상품 거래를 위해 point를 충전할 때 성공한 결제 요청에 대한 정보를 담고 있습니다.
 
-- goods table
+- goods table<br>
 ![image](https://github.com/Jiggy97/withfriend/assets/79949843/e56fdaef-c897-4766-9e59-cd5023817f31)
-사용자의 등록한 상품에 대한 정보를 담고 있고, 클라이언트를 통해 사용자들에게 테이블 내의 데이터를 기반으로 정보가 제공됩니다.
+<br>사용자의 등록한 상품에 대한 정보를 담고 있고, 클라이언트를 통해 사용자들에게 테이블 내의 데이터를 기반으로 정보가 제공됩니다.
 
-- trade table
+- trade table<br>
 ![image](https://github.com/Jiggy97/withfriend/assets/79949843/68deb4da-be76-427b-8db9-f22e55ca6031)
-사용자가 point를 통해 거래한 거래 내역에 대한 정보를 갖고 있습니다.
+<br>사용자가 point를 통해 거래한 거래 내역에 대한 정보를 갖고 있습니다.
 
   
 ## 주요 기능
