@@ -23,10 +23,4 @@ public class PortOneController {
             HttpSession session) throws JsonProcessingException {
         return portOneService.getToken(impUid, chargePoint, session);
     }
-
-//    @GetMapping("/payment/{imp_uid}")
-//    public ResponseEntity<String> paymentDetail(@PathVariable String imp_uid, HttpSession session) {
-//        String accessToken = (String) session.getAttribute("payment_access_token");
-//        return portOneService.paymentDetail(imp_uid, accessToken);
-//    }
 }
