@@ -46,50 +46,53 @@ function requestPay(chargePoint, userId, userName) {
         m_redirect_url: homeUrl
     }, async function(rsp) { // callback
         //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
-        console.log(rsp)
+        console.log(rsp);
         if (rsp.success) {
             // 인증 토큰 발급 받기
             axios({
                 url: "/portone/token?imp_uid=" +  rsp.imp_uid + "&charge_point=" + chargePoint,
                 method: "get"
                 }).then(response => {
-                    console.log(response.data.success);
-                    console.log(response.data.message);
-                    axios({
-                        url: "/payment/point",
-                        method: "post",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        data: {
-                            imp_uid: rsp.imp_uid,
-                            merchant_uid: rsp.merchant_uid,
-                            chargePoint: chargePoint,
-                            userId: userId
-                        }
-                    }).then((data) => {
-                        console.log("결제 내역, db 저장 api 요청 완료");
-                    }).catch(error => {
-                        console.log("결제 완료 시, db 저장 도중 오류");
-                        console.error(error);
-                    })
+                    console.log("imp_uid값이 잘 넘어오나?");
+                    console.log(response.data);
+                    savePayment(response.data, chargePoint, userId)
+                    // portone에 결제 요청 성공 시
+                    // 팝업 알림을 띄우고 사용자가 확인 버튼을 누를 때 이벤트 처리
+                    if (window.confirm("결제에 성공하였습니다. 확인을 누르세요.")) {
+                        console.log("사용자가 확인을 눌렀습니다.");
+                        goToHome();
+                    } else {
+                        console.log("사용자가 취소를 눌렀습니다.");
+                        // 결제 취소 로직을 나중에 짜면 될듯
+                    }
                 }).catch(error => {
                     console.log("토큰 발급 실패 시");
                     console.error(error);
                 });
-            // portone에 결제 요청 성공 시
-            // 팝업 알림을 띄우고 사용자가 확인 버튼을 누를 때 이벤트 처리
-            if (window.confirm("결제에 성공하였습니다. 확인을 누르세요.")) {
-                console.log("사용자가 확인을 눌렀습니다.");
-                goToHome();
-            } else {
-                console.log("사용자가 취소를 눌렀습니다.");
-                // 결제 취소 로직을 나중에 짜면 될듯
-            }
         } else {
             // portone에 결제 요청 실패 시
             alert(`결제에 실패하였습니다.`);
         }
+    });
+}
+
+function savePayment(impUid, chargePoint, userId) {
+    const postData = {
+      impUid: impUid,
+      chargePoint: chargePoint,
+      userId: userId
+    };
+    console.log(postData);
+
+    axios.post('/payment/point', postData, {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+    }).then((data) => {
+        console.log("결제 내역, db 저장 api 요청 완료");
+    }).catch(error => {
+        console.log("결제 완료 시, db 저장 도중 오류");
+        console.error(error);
     });
 }
 

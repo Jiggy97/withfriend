@@ -2,7 +2,6 @@ package kumbayah.withfriend.controller.portone;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpSession;
-import kumbayah.withfriend.entity.MsgEntity;
 import kumbayah.withfriend.service.portone.PortOneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +16,11 @@ public class PortOneController {
     private PortOneService portOneService;
 
     @GetMapping("/token")
-    public MsgEntity getToken(
+    public String getToken(
             @RequestParam("imp_uid") String impUid,
             @RequestParam("charge_point") double chargePoint,
             HttpSession session) throws JsonProcessingException {
-        return portOneService.getToken(impUid, chargePoint, session);
+        portOneService.getToken(impUid, chargePoint, session);
+        return impUid;
     }
 }
