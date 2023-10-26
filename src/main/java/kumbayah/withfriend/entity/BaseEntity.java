@@ -20,8 +20,6 @@ public class BaseEntity {
     @Column(insertable = false) // 테이블에 데이터를 생성할 때 관여하지 않음
     private LocalDateTime updateTime;
 
-    public BaseEntity() {}
-
     public LocalDateTime getCreateTime() { return createTime; }
     public LocalDateTime getUpdateTime() { return updateTime; }
 

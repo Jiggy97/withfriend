@@ -19,8 +19,6 @@ public class UserEntity {
     @Column
     private double point;
 
-    public UserEntity() {}
-
     public long getId() { return id; }
     public long getUserId() { return userId; }
     public String getNickname() { return nickname; }

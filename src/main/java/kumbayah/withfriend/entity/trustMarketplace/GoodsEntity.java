@@ -30,7 +30,7 @@ public class GoodsEntity extends BaseEntity {
     @Column
     private int stock;
 
-    public GoodsEntity() {}
+    // public GoodsEntity() {}
     // 생성자 내부에 변수를 넣지 않는 이유를 더 자세히 알면 좋을거 같아
 
     public long getId() { return id; }

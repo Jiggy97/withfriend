@@ -28,7 +28,6 @@ public class TradeEntity {
     @Column
     private long goodsId;
 
-    public TradeEntity() {}
     public long getId() { return id; }
     public String getMakeMerchantUid() { return makeMerchantUid; }
     public long getSellerUserId() { return sellerUserId; }
