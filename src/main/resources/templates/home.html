@@ -33,7 +33,7 @@
         <form class="action-form" th:action="@{/kakao/logout}" method="get">
             <input type="submit" value="로그아웃">
         </form>
-        <form class="action-form" th:action="@{/kakao/unlink}" method="get">
+        <form class="action-form" th:action="@{/kakao/unlink}" method="get" onsubmit="return confirm('연결을 끊으시겠습니까? 남은 포인트가 소멸될 수 있습니다.');">
             <input type="submit" value="연결끊기">
         </form>
     </div>

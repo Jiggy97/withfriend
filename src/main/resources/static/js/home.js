@@ -99,3 +99,20 @@ function savePayment(impUid, chargePoint, userId) {
 function goToHome() {
     location.href = homeUrl;
 }
+
+const requestUnlink = (button) => {
+    if (window.confirm("남아 있는 포인트가 소멸될 수 있습니다. 그래도 삭제 하시겠습니까?")) {
+        axios({
+        url: "/kakao/unlink/",
+        method: "get"
+        }).then(response => {
+            console.log("연결 끊기 실패");
+            console.log(response);
+        }).catch(error => {
+            console.log("토큰 발급 실패 시");
+            console.error(error);
+        });
+    } else {
+        console.log("계정 삭제 취소")
+    }
+}

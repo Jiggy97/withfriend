@@ -7,6 +7,7 @@ import kumbayah.withfriend.dto.kakao.KakaoFriendsInfoDTO;
 import kumbayah.withfriend.dto.user.UserDTO;
 import kumbayah.withfriend.service.kakao.KakaoService;
 import kumbayah.withfriend.service.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/kakao")
 public class KakaoController {
 
-    private final KakaoService kakaoService;
-    private final UserService userService;
-
-    KakaoController(KakaoService kakaoService, UserService userService) {
-        this.kakaoService = kakaoService;
-        this.userService = userService;
-    }
+    @Autowired
+    private KakaoService kakaoService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/callback")
     public String home(HttpServletRequest request, HttpSession session, Model model) throws Exception {
@@ -60,9 +58,12 @@ public class KakaoController {
         return "index";
     }
 
-    @GetMapping("unlink")
+    @GetMapping("/unlink")
     public String unlink(HttpSession session, Model model) {
         String accessToken = (String) session.getAttribute("access_token");
+        long userId = (Long) session.getAttribute("user_id");
+        userService.unlink(userId);
+
         session.removeAttribute("user_id");
         session.removeAttribute("access_token");
         kakaoService.unlink(accessToken);

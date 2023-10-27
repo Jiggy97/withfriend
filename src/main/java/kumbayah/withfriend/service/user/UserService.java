@@ -80,4 +80,9 @@ public class UserService {
         tradeRepository.save(TradeEntity.toSaveEntity(tradeDTO));
         // transaction 을 통해 db에 반영 +++++++++++++++++++++++++++
     }
+
+    public void unlink(long userId) {
+        long id = findByUserId(userId).getId();
+        userRepository.deleteById(id);
+    }
 }
