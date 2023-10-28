@@ -13,8 +13,8 @@ withfriend 프로젝트의 [개발 회고](https://foreveryoung97.tistory.com/ca
 
 ## 프로젝트 아키텍쳐
 [프로젝트 아키텍쳐 구조에 관한 회고입니다.](https://foreveryoung97.tistory.com/109)
-<img src="[https://github.com/Jiggy97/withfriend/assets/79949843/6ed43781-7162-4273-87a3-0b5b460683c2](https://github.com/Jiggy97/withfriend/assets/79949843/4962ea70-15ad-4509-8782-01cc34eba450)" width="1000" height="600">
-
+<img src="https://github.com/Jiggy97/withfriend/assets/79949843/cd283664-3a73-49e9-b3b0-4dbfc74c161b" width="1000" height="600">
+<br><br>
 
 ## 적용 기술
 - Java
