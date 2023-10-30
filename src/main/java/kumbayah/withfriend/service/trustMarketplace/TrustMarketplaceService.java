@@ -5,6 +5,7 @@ import kumbayah.withfriend.dto.trustMarketplace.GoodsDTO;
 import kumbayah.withfriend.entity.trustMarketplace.GoodsEntity;
 import kumbayah.withfriend.repository.trustMarketplace.TrustMarketplaceRepository;
 import kumbayah.withfriend.service.kakao.KakaoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,7 +17,10 @@ public class TrustMarketplaceService {
     private final TrustMarketplaceRepository trustMarketplaceRepository;
     private final KakaoService kakaoService;
 
-    public TrustMarketplaceService(TrustMarketplaceRepository trustMarketplaceRepository, KakaoService kakaoService) {
+    @Autowired
+    public TrustMarketplaceService(
+            TrustMarketplaceRepository trustMarketplaceRepository,
+            KakaoService kakaoService) {
         this.trustMarketplaceRepository = trustMarketplaceRepository;
         this.kakaoService = kakaoService;
     }
@@ -74,7 +78,13 @@ public class TrustMarketplaceService {
     }
 
     public void update(GoodsDTO goodsDTO, String seller, long userId) {
-        GoodsEntity goodsEntity = GoodsEntity.toUpdateEntity(goodsDTO, seller, userId);
-        trustMarketplaceRepository.save(goodsEntity);
+        Optional<GoodsEntity> testEntity = trustMarketplaceRepository.findById(goodsDTO.getId());
+        if (testEntity.isPresent()) {
+            GoodsEntity test = testEntity.get();
+            if (test.getUserId() == userId) {
+                GoodsEntity goodsEntity = GoodsEntity.toUpdateEntity(goodsDTO, seller, userId);
+                trustMarketplaceRepository.save(goodsEntity);
+            }
+        }
     }
 }
