@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface TrustMarketplaceRepository extends JpaRepository<GoodsEntity, Long> {
     List<GoodsEntity> findAllByUserId(Long userId);
+
+    void deleteAllByUserId(long userId);
 }

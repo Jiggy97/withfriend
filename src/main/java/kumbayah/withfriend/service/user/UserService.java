@@ -84,5 +84,7 @@ public class UserService {
     public void unlink(long userId) {
         long id = findByUserId(userId).getId();
         userRepository.deleteById(id);
+
+        trustMarketplaceRepository.deleteAllByUserId(userId);
     }
 }
