@@ -20,12 +20,16 @@ import java.util.List;
 @Controller
 @RequestMapping("user")
 public class UserController {
+    private final UserService userService;
+    private final KakaoService kakaoService;
+    private final TrustMarketplaceService trustMarketplaceService;
+
     @Autowired
-    private UserService userService;
-    @Autowired
-    private KakaoService kakaoService;
-    @Autowired
-    private TrustMarketplaceService trustMarketplaceService;
+    public UserController(UserService userService, KakaoService kakaoService, TrustMarketplaceService trustMarketplaceService) {
+        this.userService = userService;
+        this.kakaoService = kakaoService;
+        this.trustMarketplaceService = trustMarketplaceService;
+    }
 
     @PostMapping("/point")
     public String trade(@RequestBody UserTradeRequestDataDTO userTradeRequestDataDTO, HttpSession session, Model model) throws Exception {

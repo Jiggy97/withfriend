@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/main")
 public class MainController {
+    private final KakaoService kakaoService;
+    private final UserService userService;
+
     @Autowired
-    private KakaoService kakaoService;
-    @Autowired
-    private UserService userService;
+    public MainController(KakaoService kakaoService, UserService userService) {
+        this.kakaoService = kakaoService;
+        this.userService = userService;
+    }
 
     @GetMapping("/")
     public String login(Model model) {

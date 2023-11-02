@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/portone")
 public class PortOneController {
+    private final PortOneService portOneService;
+
     @Autowired
-    private PortOneService portOneService;
+    public PortOneController(PortOneService portOneService) {
+        this.portOneService = portOneService;
+    }
 
     @GetMapping("/token")
     public String getToken(

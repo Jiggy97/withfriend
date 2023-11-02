@@ -9,6 +9,7 @@ import kumbayah.withfriend.service.trustMarketplace.TrustMarketplaceService;
 
 import kumbayah.withfriend.dto.trustMarketplace.GoodsDTO;
 import kumbayah.withfriend.service.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ public class TrustMarketplaceController {
     private final KakaoService kakaoService;
     private final UserService userService;
 
+    @Autowired
     public TrustMarketplaceController(TrustMarketplaceService trustMarketplaceService, KakaoService kakaoService, UserService userService) {
         this.trustMarketplaceService = trustMarketplaceService;
         this.kakaoService = kakaoService;

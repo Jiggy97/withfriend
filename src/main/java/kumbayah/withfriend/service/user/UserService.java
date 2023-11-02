@@ -20,14 +20,21 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+    private final UserRepository userRepository;
+    private final TrustMarketplaceService trustMarketplaceService;
+    private final TrustMarketplaceRepository trustMarketplaceRepository;
+    private final TradeRepository tradeRepository;
+
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private TrustMarketplaceService trustMarketplaceService;
-    @Autowired
-    private TrustMarketplaceRepository trustMarketplaceRepository;
-    @Autowired
-    private TradeRepository tradeRepository;
+    public UserService(UserRepository userRepository,
+                       TrustMarketplaceService trustMarketplaceService,
+                       TrustMarketplaceRepository trustMarketplaceRepository,
+                       TradeRepository tradeRepository) {
+        this.userRepository = userRepository;
+        this.trustMarketplaceService = trustMarketplaceService;
+        this.trustMarketplaceRepository = trustMarketplaceRepository;
+        this.tradeRepository = tradeRepository;
+    }
 
     public void register(KakaoDTO kakaoDTO) {
         UserEntity isFirstLogin = userRepository.findByUserId(kakaoDTO.getId());

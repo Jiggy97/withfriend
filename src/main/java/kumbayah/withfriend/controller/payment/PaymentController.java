@@ -4,6 +4,7 @@ import kumbayah.withfriend.dto.payment.PaymentDTO;
 import kumbayah.withfriend.dto.payment.PaymentRequestDataDTO;
 import kumbayah.withfriend.service.payment.PaymentService;
 import kumbayah.withfriend.service.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,7 +13,8 @@ public class PaymentController {
     private final PaymentService paymentService;
     private final UserService userService;
 
-    PaymentController(PaymentService paymentService, UserService userService) {
+    @Autowired
+    public PaymentController(PaymentService paymentService, UserService userService) {
         this.paymentService = paymentService;
         this.userService = userService;
     }

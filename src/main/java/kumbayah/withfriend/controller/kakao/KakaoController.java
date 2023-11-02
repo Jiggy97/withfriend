@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/kakao")
 public class KakaoController {
+    private final KakaoService kakaoService;
+    private final UserService userService;
 
     @Autowired
-    private KakaoService kakaoService;
-    @Autowired
-    private UserService userService;
+    public KakaoController(KakaoService kakaoService, UserService userService) {
+        this.kakaoService = kakaoService;
+        this.userService = userService;
+    }
 
     @RequestMapping("/callback")
     public String home(HttpServletRequest request, HttpSession session, Model model) throws Exception {

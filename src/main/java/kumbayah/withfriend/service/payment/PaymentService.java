@@ -3,12 +3,14 @@ package kumbayah.withfriend.service.payment;
 import kumbayah.withfriend.dto.payment.PaymentDTO;
 import kumbayah.withfriend.entity.payment.PaymentEntity;
 import kumbayah.withfriend.repository.payment.PaymentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PaymentService {
     private final PaymentRepository paymentRepository;
 
+    @Autowired
     public PaymentService(PaymentRepository paymentRepository) {
         this.paymentRepository = paymentRepository;
     }
