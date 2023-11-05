@@ -13,6 +13,7 @@
 - 사용자 간 거래를 구현하기 위해 [결제 요청 → 서비스 point 전환 → 상품 거래 → point 반환] 의 방식을 설계하였습니다.
 - api를 RESTful하게 설계하였습니다.
 <br>
+
 ## 프로젝트 회고
 withfriend 프로젝트의 [개발 회고](https://foreveryoung97.tistory.com/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/withfriend)를 남긴 글들을 모아 놓았습니다.
 
