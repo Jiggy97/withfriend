@@ -1,9 +1,8 @@
 # 🫱🏼‍🫲🏽 withfriend
 
 ## 개요
-개발 인원 : 개인 프로젝트 <br>
-진행 기간 : 23.08.17 - 진행 중 <br>
-이커머스 서비스를 구축해보고, 사용 경험을 중점으로 개발 경험을 쌓기 위해 개발을 시작하였습니다. 또한 본 프로젝트를 혼자 힘으로 개발해 개발 근육을 키우는 목적에 있습니다.
+- 개발 인원 : 개인 프로젝트
+- 진행 기간 : 23.08.17 - 진행 중
 <br>
 
 ## 서비스 요약
@@ -16,7 +15,7 @@
 <br>
 
 ## 프로젝트 회고
-withfriend 프로젝트의 [개발 회고](https://foreveryoung97.tistory.com/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/withfriend)를 남긴 글들을 모아 놓았습니다.
+withfriend 프로젝트의 [회고, 개발 이슈, 서비스 흐름도](https://foreveryoung97.tistory.com/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/withfriend)를 남긴 글들을 모아 놓았습니다.
 <br>
 
 ## 프로젝트 아키텍쳐
@@ -31,7 +30,9 @@ withfriend 프로젝트의 [개발 회고](https://foreveryoung97.tistory.com/ca
 - JavaScript
 - SpringBoot
 - Spring Data JPA
+- Hibernate
 - MySQL
+- Thyemleaf
 
 ## Entity Diagram
 [entity 설계 및 테이블 설계에 관한 회고입니다.](https://foreveryoung97.tistory.com/110)<br>
