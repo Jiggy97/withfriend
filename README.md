@@ -3,6 +3,7 @@
 ## 개요
 - 개발 인원 : 개인 프로젝트
 - 진행 기간 : 23.08.17 - 진행 중
+- 적용 기술 : Spring(Java), Spring Data JPA, RDBMS(MySQL), Hibernate, thymeleaf
 <br>
 
 ## 서비스 요약
@@ -23,18 +24,6 @@ withfriend 프로젝트의 [회고, 개발 이슈, 서비스 흐름도](https://
 ## 프로젝트 아키텍쳐
 [프로젝트 아키텍쳐 구조에 관한 회고입니다.](https://foreveryoung97.tistory.com/109)
 <img src="https://github.com/Jiggy97/withfriend/assets/79949843/cd283664-3a73-49e9-b3b0-4dbfc74c161b" width="800" height="560">
-<br><br>
-
-## 적용 기술
-- Java
-- HTML
-- CSS
-- JavaScript
-- SpringBoot
-- Spring Data JPA
-- Hibernate
-- MySQL
-- Thyemleaf
 <br>
 <br>
 
