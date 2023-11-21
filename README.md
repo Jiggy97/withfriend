@@ -35,6 +35,8 @@ withfriend 프로젝트의 [회고, 개발 이슈, 서비스 흐름도](https://
 - Hibernate
 - MySQL
 - Thyemleaf
+<br>
+<br>
 
 ## Entity Diagram
 [entity 설계 및 테이블 설계에 관한 회고입니다.](https://foreveryoung97.tistory.com/110)<br>
@@ -55,8 +57,10 @@ withfriend 프로젝트의 [회고, 개발 이슈, 서비스 흐름도](https://
 - trade table → 사용자가 point를 통해 거래한 거래 내역에 대한 정보를 갖고 있습니다.
 <img src="https://github.com/Jiggy97/withfriend/assets/79949843/68deb4da-be76-427b-8db9-f22e55ca6031" width="300" height="300">
 <br>
+<br>
+<br>
 
-### 앞으로의 진행
+## 앞으로의 진행
 - 프로젝트를 배포하고, CI/CD를 통한 안정적인 서비스 만드는 작업을 진행 중에 있습니다.
 - 본 프로젝트의 프론트엔드 작업이 spring 프로젝트 내부에 존재해 파일 관리에 어려움을 느끼고, 프론트 개발에 크고 작은 어려움이 존재함을 느꼈습니다. 이러한 불편함을 덜어내고 더 세밀한 작업을 위해 프론트를 react로 변경할 계획에 있습니다.
 - 카카오 소셜 메시지 기능을 통해 자신의 제품을 친구들에게 홍보하고, 서비스의 방문율을 높이도록 설계할 계획이 있습니다.
