@@ -16,7 +16,9 @@
 <br>
 
 ## 프로젝트 회고
-withfriend 프로젝트의 [회고, 개발 이슈, 서비스 흐름도](https://foreveryoung97.tistory.com/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/withfriend)를 남긴 글들을 모아 놓았습니다.
+withfriend [서비스 흐름도](https://foreveryoung97.tistory.com/125)
+[개발 이슈](https://foreveryoung97.tistory.com/category/withfriend/%EA%B0%9C%EB%B0%9C%20%EC%9D%B4%EC%8A%88) 기록
+[회고록](https://foreveryoung97.tistory.com/category/withfriend/%ED%9A%8C%EA%B3%A0) 작성
 <br>
 <br>
 <br>
