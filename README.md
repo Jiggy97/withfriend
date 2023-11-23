@@ -18,7 +18,7 @@
 ## 프로젝트 회고
 [서비스 흐름도](https://foreveryoung97.tistory.com/125) <br>
 [개발 이슈](https://foreveryoung97.tistory.com/category/withfriend/%EA%B0%9C%EB%B0%9C%20%EC%9D%B4%EC%8A%88) <br>
-[회 고](https://foreveryoung97.tistory.com/category/withfriend/%ED%9A%8C%EA%B3%A0)
+[회고록](https://foreveryoung97.tistory.com/category/withfriend/%ED%9A%8C%EA%B3%A0)
 <br>
 <br>
 <br>
