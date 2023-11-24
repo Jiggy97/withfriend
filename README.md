@@ -2,7 +2,7 @@
 
 ## 개요
 - 개발 인원 : 개인 프로젝트
-- 진행 기간 : 23.08.17 - 진행 중
+- 진행 기간 : 23.08.17 - 23.11.02
 - 적용 기술 : Spring(Java), Spring Data JPA, RDBMS(MySQL), Hibernate, thymeleaf
 <br>
 
