@@ -96,7 +96,8 @@ public class TrustMarketplaceController {
         return "updateForm";
     }
 
-    @PostMapping("/goods/")
+    // RESTful 하지 않은 API 수정할 필요 있음.
+    @PatchMapping("/goods/")
     public String updateGoods(@ModelAttribute GoodsDTO goodsDTO, HttpSession session, Model model) throws Exception {
         String accessToken = (String) session.getAttribute("access_token");
         KakaoDTO kakaoDTO = kakaoService.getUserInfoWithToken(accessToken);

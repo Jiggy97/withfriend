@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <title>post</title>
     <link th:href="@{/css/updateForm.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/updateForm.js}"></script>
 </head>
 <body>
 <div class="container">
     <form th:action="@{/trust/myGoods}" method="get">
-        <input type="submit" value="돌아가기">
+        <input type="submit" value="돌아가기" class="submit-button">
     </form>
-    <form action="/trust/goods/" method="post">
-        <input type="hidden" name="id" th:value="${goods.id}">
+    <form>
+        <input type="hidden" name="id", id="id" th:value="${goods.id}">
         <label for="name">상품 이름</label>
         <input type="text" name="name" id="name" th:value="${goods.name}" required> <br>
         <label for="price">가격</label>
@@ -20,7 +21,7 @@
         <textarea class="input" name="description" id="description" cols="30" rows="10" th:utext="${goods.description}" required></textarea><br>
         <label for="stock">재고</label>
         <input class="input" type="number" name="stock" id="stock" th:value="${goods.stock}" required><br>
-        <input type="submit" value="goods 수정">
+        <button type="button" onclick="updateGoods()" class="submit-button">Goods 수정</button>
     </form>
 </div>
 </body>
