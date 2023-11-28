@@ -1,9 +1,9 @@
 # 🫱🏼‍🫲🏽 withfriend
 
 ## 개요
-개발 인원 : 개인 프로젝트
-진행 기간 : 23.08.17 - 진행 중
-이커머스 서비스를 구축해보고, 사용 경험을 중점으로 개발 경험을 쌓기 위해 개발을 시작하였습니다. 또한 본 프로젝트를 혼자 힘으로 개발해 개발 근육을 키우는 목적에 있습니다.
+- 개발 인원 : 개인 프로젝트
+- 진행 기간 : 23.08.17 - 23.11.02
+- 적용 기술 : Spring(Java), Spring Data JPA, RDBMS(MySQL), Hibernate, thymeleaf
 <br>
 
 ## 서비스 요약
@@ -16,22 +16,18 @@
 <br>
 
 ## 프로젝트 회고
-withfriend 프로젝트의 [개발 회고](https://foreveryoung97.tistory.com/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/withfriend)를 남긴 글들을 모아 놓았습니다.
+[서비스 흐름도](https://foreveryoung97.tistory.com/125) <br>
+[개발 이슈](https://foreveryoung97.tistory.com/category/withfriend/%EA%B0%9C%EB%B0%9C%20%EC%9D%B4%EC%8A%88) <br>
+[회고록](https://foreveryoung97.tistory.com/category/withfriend/%ED%9A%8C%EA%B3%A0)
+<br>
+<br>
 <br>
 
 ## 프로젝트 아키텍쳐
 [프로젝트 아키텍쳐 구조에 관한 회고입니다.](https://foreveryoung97.tistory.com/109)
-<img src="https://github.com/Jiggy97/withfriend/assets/79949843/cd283664-3a73-49e9-b3b0-4dbfc74c161b" width="1000" height="700">
-<br><br>
-
-## 적용 기술
-- Java
-- HTML
-- CSS
-- JavaScript
-- SpringBoot
-- Spring Data JPA
-- MySQL
+<img src="https://github.com/Jiggy97/withfriend/assets/79949843/cd283664-3a73-49e9-b3b0-4dbfc74c161b" width="800" height="560">
+<br>
+<br>
 
 ## Entity Diagram
 [entity 설계 및 테이블 설계에 관한 회고입니다.](https://foreveryoung97.tistory.com/110)<br>
@@ -52,8 +48,10 @@ withfriend 프로젝트의 [개발 회고](https://foreveryoung97.tistory.com/ca
 - trade table → 사용자가 point를 통해 거래한 거래 내역에 대한 정보를 갖고 있습니다.
 <img src="https://github.com/Jiggy97/withfriend/assets/79949843/68deb4da-be76-427b-8db9-f22e55ca6031" width="300" height="300">
 <br>
+<br>
+<br>
 
-### 앞으로의 진행
+## 앞으로의 진행
 - 프로젝트를 배포하고, CI/CD를 통한 안정적인 서비스 만드는 작업을 진행 중에 있습니다.
 - 본 프로젝트의 프론트엔드 작업이 spring 프로젝트 내부에 존재해 파일 관리에 어려움을 느끼고, 프론트 개발에 크고 작은 어려움이 존재함을 느꼈습니다. 이러한 불편함을 덜어내고 더 세밀한 작업을 위해 프론트를 react로 변경할 계획에 있습니다.
 - 카카오 소셜 메시지 기능을 통해 자신의 제품을 친구들에게 홍보하고, 서비스의 방문율을 높이도록 설계할 계획이 있습니다.
