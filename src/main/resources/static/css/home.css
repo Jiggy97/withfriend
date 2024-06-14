@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #F5F5DC;
-    margin: 300px 100px;
+    margin: 200px 100px;
     padding: 0;
 }
 
@@ -9,7 +9,7 @@ body {
 .header {
     background-color: #F5F5DC;
     color: #333;
-    padding: 10px 0;
+    padding: 20px 20px; /* 상하 패딩을 제거하고 좌우 패딩만 유지 */
     text-align: center;
     position: fixed;
     top: 0;
@@ -29,7 +29,8 @@ body {
 .animated-text {
     font-size: 36px;
     color: #333;
-    margin-bottom: 100px;
+    margin: 0 !important; /* 상하 마진을 제거 */
+    line-height: 1.2; /* 라인 높이 설정 */
     animation: fadeIn 1.5s ease;
 }
 
