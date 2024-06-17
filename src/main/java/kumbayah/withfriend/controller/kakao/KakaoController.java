@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/kakao")
@@ -26,18 +27,15 @@ public class KakaoController {
     }
 
     @RequestMapping("/callback")
-    public String home(HttpServletRequest request, HttpSession session, Model model) throws Exception {
+    public String callback(HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
+        // 카카오 인증 코드로 사용자 정보 가져오기
         KakaoDTO kakaoInfo = kakaoService.getKakaoInfo(request.getParameter("code"), session);
-        session.setAttribute("user_id", kakaoInfo.getId());
 
+        // 사용자 등록
         userService.register(kakaoInfo);
-        UserDTO userDTO = userService.findByUserId(kakaoInfo.getId());
 
-        model.addAttribute("userDTO", userDTO);
-
-        String agreeUrl = kakaoService.getFriendsInfo();
-        model.addAttribute("agreeUrl", agreeUrl);
-        return "home";
+        // 홈 페이지로 리다이렉션
+        return "redirect:/main/home";
     }
 
     @GetMapping("/friendsInfo")
